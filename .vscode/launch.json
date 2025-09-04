@@ -6,7 +6,29 @@
     "configurations": [
 
         {
-            "name": "Collage Creator 2DBinMaxReactPacking",
+            "name": "Collage Creator 2DBinMaxReactPacking test_images_2",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}\\2DBinMaxReactPacking.py",
+            "console": "integratedTerminal",
+            "args": [
+                "--images-dir", "${workspaceFolder}\\test_images\\seg01",
+                "--bin", "1326x1080",
+                "--padding", "6",
+                "--iters", "3",
+                "--max-scale", "4.0",
+                "--seed", "42",
+                "--out-json", "${workspaceFolder}\\output\\layout.json",
+                "--frames-json", "${workspaceFolder}\\output\\frames.json",
+                "--display-output",
+                "--project", "1920x1080",
+                "--project-scale-mode", "none",
+                "--project-align", "right",
+                "--project-out-json", "${workspaceFolder}\\output\\layout_project.json"
+            ]
+        },
+        {
+            "name": "Collage Creator 2DBinMaxReactPacking test_images_1",
             "type": "debugpy",
             "request": "launch",
             "program": "${workspaceFolder}\\2DBinMaxReactPacking.py",
@@ -20,7 +42,11 @@
                 "--seed", "42",
                 "--out-json", "${workspaceFolder}\\output\\layout.json",
                 "--frames-json", "${workspaceFolder}\\output\\frames.json",
-                "--display-output"
+                "--display-output",
+                "--project", "1920x1080",
+                "--project-scale-mode", "none",
+                "--project-align", "center",
+                "--project-out-json", "${workspaceFolder}\\output\\layout_project.json"
             ]
         }
     ]

@@ -1,12 +1,15 @@
 {
   "bin": {
-    "w": 1480,
+    "w": 1326,
     "h": 1080
   },
   "frames": [
     {
+      "mode": "bin",
+      "frame_w": 1326,
+      "frame_h": 1080,
       "title": "iter0_random_pack",
-      "coverage": 0.7192417417417417,
+      "coverage": 0.8027735880677057,
       "placements": [
         {
           "id": "NASAlandscape-e1676046879582.jpg",
@@ -41,8 +44,11 @@
       ]
     },
     {
+      "mode": "bin",
+      "frame_w": 1326,
+      "frame_h": 1080,
       "title": "iter1",
-      "coverage": 0.8406569069069069,
+      "coverage": 0.9303740014524329,
       "placements": [
         {
           "id": "wqkwy8CNJGgWVp9nZBSqXk.jpg",
@@ -68,17 +74,20 @@
           "id": "NASAlandscape-e1676046879582.jpg",
           "x": 630,
           "y": 708,
-          "w": 701,
-          "h": 366,
-          "scale": 0.745417515274949,
+          "w": 685,
+          "h": 358,
+          "scale": 0.7287234042553191,
           "w0": 940,
           "h0": 491
         }
       ]
     },
     {
+      "mode": "bin",
+      "frame_w": 1326,
+      "frame_h": 1080,
       "title": "iter2",
-      "coverage": 0.8406569069069069,
+      "coverage": 0.9325875649405061,
       "placements": [
         {
           "id": "wqkwy8CNJGgWVp9nZBSqXk.jpg",
@@ -104,17 +113,20 @@
           "id": "NASAlandscape-e1676046879582.jpg",
           "x": 630,
           "y": 708,
-          "w": 701,
-          "h": 366,
-          "scale": 0.745417515274949,
+          "w": 690,
+          "h": 360,
+          "scale": 0.7340425531914894,
           "w0": 940,
           "h0": 491
         }
       ]
     },
     {
+      "mode": "bin",
+      "frame_w": 1326,
+      "frame_h": 1080,
       "title": "iter3",
-      "coverage": 0.8406569069069069,
+      "coverage": 0.9325875649405061,
       "placements": [
         {
           "id": "wqkwy8CNJGgWVp9nZBSqXk.jpg",
@@ -140,13 +152,58 @@
           "id": "NASAlandscape-e1676046879582.jpg",
           "x": 630,
           "y": 708,
-          "w": 701,
-          "h": 366,
-          "scale": 0.745417515274949,
+          "w": 690,
+          "h": 360,
+          "scale": 0.7340425531914894,
           "w0": 940,
           "h0": 491
         }
       ]
+    },
+    {
+      "mode": "project",
+      "frame_w": 1920,
+      "frame_h": 1080,
+      "title": "Project overlay (bin inside project)",
+      "coverage": 0.644068287037037,
+      "placements": [
+        {
+          "id": "wqkwy8CNJGgWVp9nZBSqXk.jpg",
+          "x": 600,
+          "y": 6,
+          "w": 1237,
+          "h": 696,
+          "scale": 0.41232227488151657,
+          "w0": 3000,
+          "h0": 1688
+        },
+        {
+          "id": "Screenshot 2025-09-02 173859.png",
+          "x": 600,
+          "y": 708,
+          "w": 618,
+          "h": 366,
+          "scale": 0.40939597315436244,
+          "w0": 1509,
+          "h0": 894
+        },
+        {
+          "id": "NASAlandscape-e1676046879582.jpg",
+          "x": 1224,
+          "y": 708,
+          "w": 690,
+          "h": 360,
+          "scale": 0.7340425531914894,
+          "w0": 940,
+          "h0": 491
+        }
+      ],
+      "bin_rect": {
+        "x": 594,
+        "y": 0,
+        "w": 1326,
+        "h": 1080
+      }
     }
   ]
 }

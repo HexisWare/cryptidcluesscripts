@@ -1,0 +1,389 @@
+
+[object ComponentParamCollection]
+motion.properties[0].displayName
+Position
+motion.properties[1].displayName
+Scale
+setting to center position
+1522
+347
+392
+616
+1718
+655
+layout project w and h
+1920
+1080
+0.89479166666667
+0.60648148148148
+Clip info: 
+Okanagan_Lake,_Near_Pentiction_British_Columbia.png
+2025-09-02 16-39-39.mp4
+Layout usage handling
+motion
+[object Component]
+place
+[object Object]
+params.pos
+993,331
+993
+331
+params.scale
+122.8125
+motion.properties
+[object ComponentParamCollection]
+motion.properties[0].displayName
+Position
+motion.properties[1].displayName
+Scale
+setting to center position
+600
+6
+786
+650
+993
+331
+layout project w and h
+1920
+1080
+0.5171875
+0.30648148148148
+Clip info: 
+41057686-loveland-frogman-jpg.jpg
+2025-09-02 16-39-39.mp4
+Layout usage handling
+motion
+[object Component]
+place
+[object Object]
+params.pos
+965.5,868
+965.5
+868
+params.scale
+121.833333333333
+motion.properties
+[object ComponentParamCollection]
+motion.properties[0].displayName
+Position
+motion.properties[1].displayName
+Scale
+setting to center position
+600
+662
+731
+412
+965.5
+868
+layout project w and h
+1920
+1080
+0.50286458333333
+0.8037037037037
+Placed 6 image(s) for segment 1
+current Clip start and duration
+4771800633600
+4712470963200
+Current segment folder handling
+/d/Youtube/CryptidClues/Season3/images/TESTautomatedScriptsVideo/seg02
+Layout handling, initial for audio segment
+layout:
+{
+  "project": {
+    "w": 1920,
+    "h": 1080
+  },
+  "from": {
+    "bin": {
+      "w": 1326,
+      "h": 1080
+    },
+    "project": {
+      "w": 1920,
+      "h": 1080
+    },
+    "scale_mode": "none",
+    "align": "right",
+    "offset": {
+      "x": 594,
+      "y": 0
+    },
+    "uniform_scale": 1
+  },
+  "placements": [
+    {
+      "id": "Okanagan_Lake,_Near_Pentiction_British_Columbia.png",
+      "x": 600,
+      "y": 6,
+      "w": 786,
+      "h": 650,
+      "scale": 1.228125,
+      "w0": 640,
+      "h0": 529
+    },
+    {
+      "id": "Crawler.webp",
+      "x": 1392,
+      "y": 6,
+      "w": 495,
+      "h": 335,
+      "scale": 1.24074074074074,
+      "w0": 399,
+      "h0": 270
+    },
+    {
+      "id": "Mokele-mbembe_ill_artlibre_jnl.png",
+      "x": 1522,
+      "y": 347,
+      "w": 392,
+      "h": 616,
+      "scale": 1.568,
+      "w0": 250,
+      "h0": 393
+    },
+    {
+      "id": "41057686-loveland-frogman-jpg.jpg",
+      "x": 600,
+      "y": 662,
+      "w": 731,
+      "h": 412,
+      "scale": 1.2189349112426,
+      "w0": 600,
+      "h0": 338
+    },
+    {
+      "id": "Loveland_monster_by_Si_Cornell-137x300.jpg",
+      "x": 1337,
+      "y": 662,
+      "w": 179,
+      "h": 392,
+      "scale": 1.30656934306569,
+      "w0": 137,
+      "h0": 300
+    }
+  ]
+}
+layout placements:
+[
+  {
+    "id": "Okanagan_Lake,_Near_Pentiction_British_Columbia.png",
+    "x": 600,
+    "y": 6,
+    "w": 786,
+    "h": 650,
+    "scale": 1.228125,
+    "w0": 640,
+    "h0": 529
+  },
+  {
+    "id": "Crawler.webp",
+    "x": 1392,
+    "y": 6,
+    "w": 495,
+    "h": 335,
+    "scale": 1.24074074074074,
+    "w0": 399,
+    "h0": 270
+  },
+  {
+    "id": "Mokele-mbembe_ill_artlibre_jnl.png",
+    "x": 1522,
+    "y": 347,
+    "w": 392,
+    "h": 616,
+    "scale": 1.568,
+    "w0": 250,
+    "h0": 393
+  },
+  {
+    "id": "41057686-loveland-frogman-jpg.jpg",
+    "x": 600,
+    "y": 662,
+    "w": 731,
+    "h": 412,
+    "scale": 1.2189349112426,
+    "w0": 600,
+    "h0": 338
+  },
+  {
+    "id": "Loveland_monster_by_Si_Cornell-137x300.jpg",
+    "x": 1337,
+    "y": 662,
+    "w": 179,
+    "h": 392,
+    "scale": 1.30656934306569,
+    "w0": 137,
+    "h0": 300
+  }
+]
+map:
+{
+  "Okanagan_Lake,_Near_Pentiction_British_Columbia.png": {
+    "id": "Okanagan_Lake,_Near_Pentiction_British_Columbia.png",
+    "x": 600,
+    "y": 6,
+    "w": 786,
+    "h": 650,
+    "scale": 1.228125,
+    "w0": 640,
+    "h0": 529
+  },
+  "Crawler.webp": {
+    "id": "Crawler.webp",
+    "x": 1392,
+    "y": 6,
+    "w": 495,
+    "h": 335,
+    "scale": 1.24074074074074,
+    "w0": 399,
+    "h0": 270
+  },
+  "Mokele-mbembe_ill_artlibre_jnl.png": {
+    "id": "Mokele-mbembe_ill_artlibre_jnl.png",
+    "x": 1522,
+    "y": 347,
+    "w": 392,
+    "h": 616,
+    "scale": 1.568,
+    "w0": 250,
+    "h0": 393
+  },
+  "41057686-loveland-frogman-jpg.jpg": {
+    "id": "41057686-loveland-frogman-jpg.jpg",
+    "x": 600,
+    "y": 662,
+    "w": 731,
+    "h": 412,
+    "scale": 1.2189349112426,
+    "w0": 600,
+    "h0": 338
+  },
+  "Loveland_monster_by_Si_Cornell-137x300.jpg": {
+    "id": "Loveland_monster_by_Si_Cornell-137x300.jpg",
+    "x": 1337,
+    "y": 662,
+    "w": 179,
+    "h": 392,
+    "scale": 1.30656934306569,
+    "w0": 137,
+    "h0": 300
+  }
+}
+Clip info: 
+Loveland_monster_by_Si_Cornell-137x300.jpg
+2025-09-02 16-39-16.mp4
+Layout usage handling
+motion
+[object Component]
+place
+[object Object]
+params.pos
+1426.5,858
+1426.5
+858
+params.scale
+130.656934306569
+motion.properties
+[object ComponentParamCollection]
+motion.properties[0].displayName
+Position
+motion.properties[1].displayName
+Scale
+setting to center position
+1337
+662
+179
+392
+1426.5
+858
+layout project w and h
+1920
+1080
+0.74296875
+0.79444444444444
+Clip info: 
+NASAlandscape-e1676046879582.jpg
+2025-09-02 16-39-16.mp4
+Layout usage handling
+motion
+[object Component]
+place
+undefined
+Error changing clip duration.
+TypeError: undefined is not an object
+Clip info: 
+Mokele-mbembe_ill_artlibre_jnl.png
+2025-09-02 16-39-16.mp4
+Layout usage handling
+motion
+[object Component]
+place
+[object Object]
+params.pos
+1718,655
+1718
+655
+params.scale
+156.743002544529
+motion.properties
+[object ComponentParamCollection]
+motion.properties[0].displayName
+Position
+motion.properties[1].displayName
+Scale
+setting to center position
+1522
+347
+392
+616
+1718
+655
+layout project w and h
+1920
+1080
+0.89479166666667
+0.60648148148148
+Clip info: 
+Okanagan_Lake,_Near_Pentiction_British_Columbia.png
+2025-09-02 16-39-16.mp4
+Layout usage handling
+motion
+[object Component]
+place
+[object Object]
+params.pos
+993,331
+993
+331
+params.scale
+122.8125
+motion.properties
+[object ComponentParamCollection]
+motion.properties[0].displayName
+Position
+motion.properties[1].displayName
+Scale
+setting to center position
+600
+6
+786
+650
+993
+331
+layout project w and h
+1920
+1080
+0.5171875
+0.30648148148148
+Clip info: 
+wqkwy8CNJGgWVp9nZBSqXk - Copy.jpg
+2025-09-02 16-39-16.mp4
+Layout usage handling
+motion
+[object Component]
+place
+undefined
+Error changing clip duration.
+TypeError: undefined is not an object
+Placed 7 image(s) for segment 2
+Result: undefined

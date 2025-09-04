@@ -1,6 +1,7 @@
 # MaxRects + randomized initial packing + iterative optimize
 #   inflate (uniform, AR-preserving) → slide → reflow (current sizes) → global uniform re-pack
-# One master figure shows all iterations, with coverage %. No rotation anywhere.
+# One master figure shows all iterations (bin panels) + a final Project overlay panel (outer=project, inner dashed=bin).
+# No rotation anywhere.
 
 from dataclasses import dataclass
 from typing import List, Tuple, Optional, Dict, Sequence
@@ -202,7 +203,7 @@ def pack_scale_to_fit(bin_w:int, bin_h:int, rects: Sequence[Tuple[str,int,int]],
     if not leftovers:
         return placements, leftovers, 1.0, occ
 
-    # Binary-search scale; keep this deterministic for stability (or pass a seed if desired)
+    # Binary-search scale; deterministic (or pass seed via try_pack_at_scale if desired)
     for _ in range(max_iter):
         mid = (lo + hi) / 2.0
         placements, leftovers, occ = try_pack_at_scale(bin_w, bin_h, rects, mid, padding)
@@ -360,7 +361,7 @@ def coverage_ratio(bin_w:int, bin_h:int, placements: Sequence[Dict]) -> float:
     bin_area = max(1, bin_w * bin_h)
     return total_area(placements) / bin_area
 
-# ---------- Visualization (master figure with images + coverage) ----------
+# ---------- Image IO ----------
 _IMAGE_CACHE: Dict[str, Image.Image] = {}
 def _load_image_cached(path: str) -> Optional[Image.Image]:
     if path in _IMAGE_CACHE:
@@ -374,43 +375,6 @@ def _load_image_cached(path: str) -> Optional[Image.Image]:
     except Exception:
         return None
 
-def draw_master_with_images(bin_w:int, bin_h:int,
-                            frames: List[Tuple[str, List[Dict]]],
-                            image_root: Optional[str],
-                            save_path: Optional[str] = "./all_iterations.png",
-                            draw_boxes: bool = True):
-    import numpy as np
-    import matplotlib.pyplot as plt
-    import matplotlib.patches as patches
-    n = len(frames)
-    fig_w = 6 * n
-    fig, axes = plt.subplots(1, n, figsize=(fig_w, 6), squeeze=False)
-    axes = axes[0]
-    for ax, (title, placements) in zip(axes, frames):
-        cov = coverage_ratio(bin_w, bin_h, placements) * 100.0
-        ax.set_xlim(0, bin_w); ax.set_ylim(bin_h, 0)
-        ax.set_aspect('equal', adjustable='box')
-        ax.add_patch(patches.Rectangle((0,0), bin_w, bin_h, fill=False, linewidth=2))
-        for p in placements:
-            x, y, w, h = p["x"], p["y"], p["w"], p["h"]
-            if image_root is not None:
-                img_path = os.path.join(image_root, p["id"])
-                img = _load_image_cached(img_path)
-                if img is not None:
-                    arr = np.asarray(img.resize((max(1,w), max(1,h)), Image.LANCZOS))
-                    ax.imshow(arr, extent=(x, x+w, y+h, y), interpolation="nearest")
-            if draw_boxes:
-                ax.add_patch(patches.Rectangle((x, y), w, h, fill=False, linewidth=1.2))
-            ax.text(x+4, y+14, f'{p["id"]}  s={p["scale"]:.2f}', fontsize=8,
-                    color="black", bbox=dict(facecolor="white", alpha=0.5, pad=1.2))
-        ax.set_title(f"{title}\nCoverage: {cov:.1f}%")
-    fig.tight_layout()
-    if save_path:
-        fig.savefig(save_path, dpi=150, bbox_inches='tight')
-    import matplotlib.pyplot as plt
-    plt.show()
-
-# ---------- Image IO ----------
 def get_image_dimensions(directory_path):
     image_info = []
     for filename in os.listdir(directory_path):
@@ -424,7 +388,7 @@ def get_image_dimensions(directory_path):
                 pass
     return image_info
 
-
+# ---------- Parsers ----------
 def _coverage_ratio(bin_w:int, bin_h:int, placements):
     bin_area = max(1, bin_w * bin_h)
     return sum(p["w"] * p["h"] for p in placements) / bin_area
@@ -436,26 +400,141 @@ def _parse_bin(s: str) -> tuple:
     w, h = s.lower().split("x")
     return int(w), int(h)
 
+def _parse_wh(s: str) -> tuple[int, int]:
+    # "1920x1080" -> (1920, 1080)
+    s = s.lower().strip()
+    if "x" not in s:
+        raise ValueError("Expected WxH like 1920x1080")
+    w, h = s.split("x")
+    return int(w), int(h)
+
 def _build_rects_from_dir(images_dir: str):
-    file_data = get_image_dimensions(images_dir)  # uses your existing helper
-    # [(id, w, h), ...] where id is the filename (Premiere will match on this)
+    file_data = get_image_dimensions(images_dir)
     return [(im['name'], im['width'], im['height']) for im in file_data]
 
-def render_snapshots_master(bin_w:int, bin_h:int,
-                            snapshots: List[Dict],
-                            images_dir: Optional[str],
-                            save_path: Optional[str] = None,
-                            draw_boxes: bool = True):
+# ---------- Remap bin → project ----------
+def remap_layout_to_project(
+    placements,
+    bin_w: int, bin_h: int,
+    proj_w: int, proj_h: int,
+    scale_mode: str = "none",      # "none" | "fit-width" | "fit-height" | "fit-best"
+    align: str = "center",         # "topleft" | "top" | "topright" | "left" | "center" | "right" | "bottomleft" | "bottom" | "bottomright"
+    offset_xy: Optional[Tuple[int,int]] = None  # overrides align if provided
+):
     """
-    Render one master figure from snapshot dicts:
-    each snapshot is {"title": str, "coverage": float, "placements": [...]}
+    Return (mapped_placements, meta) where mapped placements are in PROJECT coords.
+    Scales uniformly per 'scale_mode' and offsets by 'align' or explicit offset.
     """
-    # Safe backend selection for headless environments
+    out = copy.deepcopy(placements)
+
+    # scale factor
+    if scale_mode == "fit-width":
+        s = proj_w / float(bin_w)
+    elif scale_mode == "fit-height":
+        s = proj_h / float(bin_h)
+    elif scale_mode == "fit-best":
+        s = min(proj_w / float(bin_w), proj_h / float(bin_h))
+    else:
+        s = 1.0
+
+    lay_w = int(round(bin_w * s))
+    lay_h = int(round(bin_h * s))
+
+    # offset
+    if offset_xy is not None:
+        ox, oy = offset_xy
+    else:
+        # horizontal
+        if "left" in align:   ax = 0
+        elif "right" in align: ax = proj_w - lay_w
+        else:                  ax = (proj_w - lay_w) // 2
+        # vertical
+        if "top" in align:     ay = 0
+        elif "bottom" in align:ay = proj_h - lay_h
+        else:                  ay = (proj_h - lay_h) // 2
+        ox, oy = int(ax), int(ay)
+
+    # transform
+    for p in out:
+        p["x"] = int(round(p["x"] * s)) + ox
+        p["y"] = int(round(p["y"] * s)) + oy
+        p["w"] = int(round(p["w"] * s))
+        p["h"] = int(round(p["h"] * s))
+        p["scale"] = float(p.get("scale", 1.0) * s)
+
+    meta = {
+        "bin": {"w": bin_w, "h": bin_h},
+        "project": {"w": proj_w, "h": proj_h},
+        "scale_mode": scale_mode,
+        "align": align,
+        "offset": {"x": ox, "y": oy},
+        "uniform_scale": s,
+    }
+    return out, meta
+
+# ---------- Snapshot builders ----------
+def make_bin_snapshot(title: str, bin_w: int, bin_h: int, placements: List[Dict]) -> Dict:
+    return {
+        "mode": "bin",
+        "frame_w": bin_w,
+        "frame_h": bin_h,
+        "title": title,
+        "coverage": coverage_ratio(bin_w, bin_h, placements),
+        "placements": copy.deepcopy(placements)
+    }
+
+def make_project_overlay_snapshot(
+    title: str,
+    bin_w: int, bin_h: int,
+    proj_w: int, proj_h: int,
+    placements: List[Dict],
+    scale_mode: str = "none",
+    align: str = "center"
+) -> Dict:
+    mapped, meta = remap_layout_to_project(
+        placements, bin_w, bin_h, proj_w, proj_h,
+        scale_mode=scale_mode, align=align
+    )
+    ox, oy = meta["offset"]["x"], meta["offset"]["y"]
+    lay_w = int(round(meta["uniform_scale"] * bin_w))
+    lay_h = int(round(meta["uniform_scale"] * bin_h))
+    return {
+        "mode": "project",
+        "frame_w": proj_w,
+        "frame_h": proj_h,
+        "title": title,
+        "coverage": coverage_ratio(proj_w, proj_h, mapped),
+        "placements": mapped,
+        "bin_rect": {"x": int(ox), "y": int(oy), "w": lay_w, "h": lay_h}
+    }
+
+# ---------- Renderer (mixed-size panels: bin and project) ----------
+def render_snapshots_master(
+    snapshots: List[Dict],
+    images_dir: Optional[str],
+    save_path: Optional[str] = None,
+    draw_boxes: bool = True
+):
+    """
+    Renders a row of panels. Each snapshot is a dict like:
+      {
+        "mode": "bin"|"project",
+        "frame_w": int, "frame_h": int,
+        "title": str,
+        "coverage": float,            # [0,1]
+        "placements": [...],
+        # project-only:
+        "bin_rect": {"x","y","w","h"}
+      }
+    """
     try:
+        import os, tempfile
+        os.environ.setdefault("MPLBACKEND", "Agg")                      
+        os.environ.setdefault("MPLCONFIGDIR", os.path.join(tempfile.gettempdir(), "mpl_cache"))
         import matplotlib
-        # If a GUI backend isn't available (e.g., no DISPLAY), fall back to Agg
-        if (os.name != "nt") and ("DISPLAY" not in os.environ):
-            matplotlib.use("Agg")
+        matplotlib.use("Agg", force=True)
+        # if (os.name != "nt") and ("DISPLAY" not in os.environ):
+        #     matplotlib.use("Agg")
         import matplotlib.pyplot as plt
         import matplotlib.patches as patches
         import numpy as np
@@ -463,25 +542,38 @@ def render_snapshots_master(bin_w:int, bin_h:int,
         print(f"[render_snapshots_master] Matplotlib unavailable: {e}")
         return
 
-    n = len(snapshots)
-    if n == 0:
+    if not snapshots:
         print("[render_snapshots_master] No snapshots to render.")
         return
 
+    n = len(snapshots)
     fig_w = max(4, 6 * n)
     fig, axes = plt.subplots(1, n, figsize=(fig_w, 6), squeeze=False)
     axes = axes[0]
 
     for ax, snap in zip(axes, snapshots):
-        title = snap.get("title", "")
-        placements = snap.get("placements", [])
-        cov = snap.get("coverage", 0.0) * 100.0
+        mode    = snap.get("mode", "bin")
+        fw      = int(snap.get("frame_w", 1))
+        fh      = int(snap.get("frame_h", 1))
+        title   = snap.get("title", "")
+        cov     = float(snap.get("coverage", 0.0)) * 100.0
+        places  = snap.get("placements", [])
 
-        ax.set_xlim(0, bin_w); ax.set_ylim(bin_h, 0)
+        ax.set_xlim(0, fw); ax.set_ylim(fh, 0)
         ax.set_aspect('equal', adjustable='box')
-        ax.add_patch(patches.Rectangle((0,0), bin_w, bin_h, fill=False, linewidth=2))
+        # outer frame (bin or project)
+        ax.add_patch(patches.Rectangle((0,0), fw, fh, fill=False, linewidth=2))
 
-        for p in placements:
+        # inner bin rectangle for project mode
+        if mode == "project" and "bin_rect" in snap:
+            br = snap["bin_rect"]
+            ax.add_patch(patches.Rectangle(
+                (br["x"], br["y"]), br["w"], br["h"],
+                fill=False, linewidth=1.5, linestyle="--"
+            ))
+
+        # draw images & boxes
+        for p in places:
             x, y, w, h = p["x"], p["y"], p["w"], p["h"]
             if images_dir:
                 img_path = os.path.join(images_dir, p["id"])
@@ -497,22 +589,20 @@ def render_snapshots_master(bin_w:int, bin_h:int,
         ax.set_title(f"{title}\nCoverage: {cov:.1f}%")
 
     fig.tight_layout()
-
     if save_path:
-        # Ensure folder exists if a directory is provided
         save_dir = os.path.dirname(save_path)
         if save_dir:
             os.makedirs(save_dir, exist_ok=True)
         fig.savefig(save_path, dpi=150, bbox_inches='tight')
         print(f"Saved master figure: {save_path}")
+    # import matplotlib.pyplot as plt
+    # plt.show()
+    plt.close(fig)
+    plt.close('all')
 
-    # If a GUI backend is available, show the window;
-    # on Agg (headless), show() does nothing harmful.
-    plt.show()
-
-
+# ---------- CLI / Main ----------
 def main():
-    ap = argparse.ArgumentParser(description="MaxRects layout → JSON for Premiere")
+    ap = argparse.ArgumentParser(description="MaxRects layout → JSON for Premiere (with matplotlib snapshots)")
     ap.add_argument("--images-dir", type=str, required=True,
                     help="Folder containing images (ids are filenames)")
     ap.add_argument("--bin", type=_parse_bin, required=True,
@@ -526,11 +616,23 @@ def main():
     ap.add_argument("--seed", type=int, default=None,
                     help="Seed for randomized initial pack (omit for fresh randomness each run)")
     ap.add_argument("--out-json", type=str, required=True,
-                    help="Output JSON path for Premiere")
+                    help="Output JSON path for Premiere (bin space)")
     ap.add_argument("--frames-json", type=str, default=None,
                     help="Optional: also write per-iteration frames (debug/visualization)")
     ap.add_argument("--display-output", action="store_true",
-                help="If set, render a matplotlib figure with all iterations")
+                    help="If set, render a matplotlib figure with all iterations + project overlay (if given)")
+    ap.add_argument("--project", type=_parse_wh, default=None,
+                    help="Project/sequence size WxH (e.g., 1920x1080). If given, also write a project-mapped JSON and add an overlay panel.")
+    ap.add_argument("--project-scale-mode", type=str, default="none",
+                    choices=["none","fit-width","fit-height","fit-best"],
+                    help="How to scale the bin layout into the project frame.")
+    ap.add_argument("--project-align", type=str, default="center",
+                    choices=["topleft","top","topright","left","center","right","bottomleft","bottom","bottomright"],
+                    help="Where to place the (scaled) bin layout within the project frame.")
+    ap.add_argument("--project-out-json", type=str, default=None,
+                    help="Optional path for the project-mapped layout JSON (if --project is provided).")
+    ap.add_argument("--segment-number", type=int, default=1,
+                    help="Optional segment number.")
     args = ap.parse_args()
 
     BIN_W, BIN_H = args.bin
@@ -539,34 +641,25 @@ def main():
     MAX_SCALE = float(args.max_scale)
     SEED = args.seed
     DISPLAY_OUTPUT = args.display_output
+    SEGMENT_NUMBER = int(args.segment_number)
 
     # 1) Load images → rects
     rects = _build_rects_from_dir(args.images_dir)
     if not rects:
         raise SystemExit(f"No images found under: {args.images_dir}")
 
-    # 2) Initial randomized pack at scale 1.0 (headroom maintained since we cap growth by MAX_SCALE)
+    # 2) Initial randomized pack at scale 1.0
     placements, leftovers, used_scale, occ = pack_scale_to_fit(
         BIN_W, BIN_H, rects,
         min_scale=0.15, max_scale=1.0, padding=PADDING, seed=SEED
     )
 
-    # Optional: keep per-iteration snapshots (for debugging / coverage reporting)
-    frames = []
-    def snap(label: str):
-        frames.append({
-            "title": label,
-            "coverage": _coverage_ratio(BIN_W, BIN_H, placements),
-            "placements": copy.deepcopy(placements)
-        })
-    snap("iter0_random_pack")
+    # --- snapshots (bin panels) ---
+    frames: List[Dict] = []
+    def snap_bin(label: str):
+        frames.append(make_bin_snapshot(label, BIN_W, BIN_H, placements))
 
-    # frames_image: List[Tuple[str, List[Dict]]] = []
-    # def snap_image(title: str):
-    #     frames.append((title, copy.deepcopy(placements)))
-    #     cov = coverage_ratio(BIN_W, BIN_H, placements) * 100.0
-    #     print(f"{title}: coverage = {cov:.2f}%  (placed area = {total_area(placements):,} px^2)")
-    # snap_image("Iter 0 — randomized uniform pack")
+    snap_bin("iter0_random_pack")
 
     # 3) Iterate: inflate → slide → reflow → global uniform repack
     for i in range(1, OUTER_ITERS + 1):
@@ -578,19 +671,18 @@ def main():
         s_lo = min(p["scale"] for p in placements) if placements else 1.0
         global_uniform_repack(BIN_W, BIN_H, placements,
                               padding=PADDING, s_lo=s_lo, s_hi=MAX_SCALE)
-        snap(f"iter{i}")
+        snap_bin(f"iter{i}")
 
-    # 4) Write compact JSON for Premiere (final placements only)
+    # 4) Write compact JSON for Premiere (final placements only, in BIN space)
     out = {
         "bin": {"w": BIN_W, "h": BIN_H},
         "padding": PADDING,
         "seed": SEED,
         "iters": OUTER_ITERS,
         "coverage": _coverage_ratio(BIN_W, BIN_H, placements),
-        # Premiere will use id, x, y, w, h, scale; include w0/h0 too if you want JSX to set exact Scale %
         "placements": [
             {
-                "id": p["id"],  # filename (used to match clips)
+                "id": p["id"],
                 "x": int(p["x"]),
                 "y": int(p["y"]),
                 "w": int(p["w"]),
@@ -603,98 +695,65 @@ def main():
         ]
     }
 
-    os.makedirs(os.path.dirname(args.out_json), exist_ok=True)
+    os.makedirs(os.path.dirname(args.out_json) or ".", exist_ok=True)
     with open(args.out_json, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=2)
 
-    # Optional: dump per-iteration frames as well
+    # OPTIONAL: also write a project-mapped JSON and add overlay panel
+    if args.project is not None:
+        PROJ_W, PROJ_H = args.project
+        mapped, meta = remap_layout_to_project(
+            placements=out["placements"],
+            bin_w=BIN_W, bin_h=BIN_H,
+            proj_w=PROJ_W, proj_h=PROJ_H,
+            scale_mode=args.project_scale_mode,
+            align=args.project_align
+        )
+        proj_out = {
+            "project": {"w": PROJ_W, "h": PROJ_H},
+            "from": meta,
+            "placements": mapped
+        }
+        path = args.project_out_json or os.path.join(os.path.dirname(args.out_json) or ".", "layout_project.json")
+        os.makedirs(os.path.dirname(path) or ".", exist_ok=True)
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(proj_out, f, ensure_ascii=False, indent=2)
+        print(f"Wrote project layout JSON: {path}")
+
+        # Append a project overlay panel to the figure
+        frames.append(
+            make_project_overlay_snapshot(
+                title="Project overlay (bin inside project)",
+                bin_w=BIN_W, bin_h=BIN_H,
+                proj_w=PROJ_W, proj_h=PROJ_H,
+                placements=placements,                # final bin-space placements
+                scale_mode=args.project_scale_mode,
+                align=args.project_align
+            )
+        )
+
+    # Optional: dump per-iteration frames as well (bin-space snapshots only)
     if args.frames_json:
-        os.makedirs(os.path.dirname(args.frames_json), exist_ok=True)
+        os.makedirs(os.path.dirname(args.frames_json) or ".", exist_ok=True)
         with open(args.frames_json, "w", encoding="utf-8") as f:
             json.dump({
                 "bin": {"w": BIN_W, "h": BIN_H},
                 "frames": frames
             }, f, ensure_ascii=False, indent=2)
 
-    # Also print a short line for debugging (ExtendScript can ignore this)
-    print(f"Wrote layout JSON: {args.out_json}  | coverage={out['coverage']:.3f}")
+    # Console summary
+    print(f"Wrote layout JSON: {args.out_json}  | bin coverage={out['coverage']:.3f}")
 
-    # # Draw one master figure with all snapshots (titles include coverage)
-    # draw_master_with_images(
-    #     BIN_W, BIN_H, frames, image_root=rects,
-    #     save_path="./output/all_iterations.png", draw_boxes=True
-    # )
-    # print("Saved master figure: ./output/all_iterations.png")
-
+    # Render master figure (bin iterations + optional project overlay)
     if DISPLAY_OUTPUT:
-        # Save next to out-json by default
-        default_png = os.path.join(os.path.dirname(args.out_json) or ".", "all_iterations.png")
+        default_png = os.path.join(os.path.dirname(args.out_json) or ".", f"all_iterations_{SEGMENT_NUMBER}.png")
         render_snapshots_master(
-            BIN_W, BIN_H,
-            snapshots=frames,              # <- your dict snapshots
+            snapshots=frames,
             images_dir=args.images_dir,
             save_path=default_png,
             draw_boxes=True
         )
 
-
-# comment out to use manually
-main()
-# uncomment for manual run, otherwise use launch.json debugger
-# # ---------- Demo ----------
-# if __name__ == "__main__":
-#     BIN = (1480, 1080)
-#     PADDING = 6
-#     MAX_SCALE = 4.0
-#     OUTER_ITERS = 3
-
-#     # Choose a seed for reproducible randomness; set to None for fresh randomness each run.
-#     INITIAL_PACK_SEED = None  # e.g., 12345
-
-#     image_dir = "./test_images_2"
-
-#     # A) scan directory
-#     file_data = get_image_dimensions(image_dir)
-#     rects = [(im['name'], im['width'], im['height']) for im in file_data]
-
-#     # B) quick two-image test (uncomment to force this case)
-#     # rects = [
-#     #   ('Loveland_monster_by_Si_Cornell-137x300.jpg', 137, 300),
-#     #   ('Mokele-mbembe_ill_artlibre_jnl.png', 250, 393),
-#     # ]
-
-#     # 1) Initial randomized pack (start <= original so inflate has headroom)
-#     placements, leftovers, used_scale, occ = pack_scale_to_fit(
-#         BIN[0], BIN[1], rects, min_scale=0.15, max_scale=1.0, padding=PADDING,
-#         seed=INITIAL_PACK_SEED
-#     )
-
-#     frames: List[Tuple[str, List[Dict]]] = []
-#     def snap(title: str):
-#         frames.append((title, copy.deepcopy(placements)))
-#         cov = coverage_ratio(BIN[0], BIN[1], placements) * 100.0
-#         print(f"{title}: coverage = {cov:.2f}%  (placed area = {total_area(placements):,} px^2)")
-
-#     snap("Iter 0 — randomized uniform pack")
-
-#     # 2) Iterate: inflate → slide → reflow → global uniform repack
-#     for i in range(1, OUTER_ITERS + 1):
-#         inflate_to_fill(BIN[0], BIN[1], placements, padding=PADDING,
-#                         max_scale=MAX_SCALE, passes=3)
-#         slide_compact(placements, padding=PADDING)
-#         reflow_with_maxrects(BIN[0], BIN[1], placements, padding=PADDING)
-
-#         # global uniform re-pack: seek largest common scale in [current_min_scale, MAX_SCALE]
-#         s_lo = min(p["scale"] for p in placements) if placements else 1.0
-#         global_uniform_repack(BIN[0], BIN[1], placements,
-#                               padding=PADDING, s_lo=s_lo, s_hi=MAX_SCALE)
-
-#         snap(f"Iter {i} — inflate → slide → reflow → global repack")
-
-#     # 3) Draw one master figure with all snapshots (titles include coverage)
-#     draw_master_with_images(
-#         BIN[0], BIN[1], frames, image_root=image_dir,
-#         save_path="./all_iterations.png", draw_boxes=True
-#     )
-#     print("Saved master figure: ./all_iterations.png")
-
+# Run as script
+if __name__ == "__main__":
+    main()

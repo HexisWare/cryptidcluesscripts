@@ -1,0 +1,75 @@
+{
+  "project": {
+    "w": 1920,
+    "h": 1080
+  },
+  "from": {
+    "bin": {
+      "w": 1326,
+      "h": 1080
+    },
+    "project": {
+      "w": 1920,
+      "h": 1080
+    },
+    "scale_mode": "none",
+    "align": "right",
+    "offset": {
+      "x": 594,
+      "y": 0
+    },
+    "uniform_scale": 1.0
+  },
+  "placements": [
+    {
+      "id": "Okanagan_Lake,_Near_Pentiction_British_Columbia.png",
+      "x": 600,
+      "y": 6,
+      "w": 786,
+      "h": 650,
+      "scale": 1.228125,
+      "w0": 640,
+      "h0": 529
+    },
+    {
+      "id": "Screenshot 2025-09-03 195008.png",
+      "x": 1392,
+      "y": 6,
+      "w": 483,
+      "h": 326,
+      "scale": 1.2395437262357414,
+      "w0": 390,
+      "h0": 263
+    },
+    {
+      "id": "Mokele-mbembe_ill_artlibre_jnl.png",
+      "x": 1522,
+      "y": 338,
+      "w": 392,
+      "h": 616,
+      "scale": 1.568,
+      "w0": 250,
+      "h0": 393
+    },
+    {
+      "id": "41057686-loveland-frogman-jpg.jpg",
+      "x": 600,
+      "y": 662,
+      "w": 731,
+      "h": 412,
+      "scale": 1.2189349112426036,
+      "w0": 600,
+      "h0": 338
+    },
+    {
+      "id": "Loveland_monster_by_Si_Cornell-137x300.jpg",
+      "x": 1337,
+      "y": 662,
+      "w": 179,
+      "h": 392,
+      "scale": 1.3065693430656935,
+      "w0": 137,
+      "h0": 300
+    }
+  ]
+}
