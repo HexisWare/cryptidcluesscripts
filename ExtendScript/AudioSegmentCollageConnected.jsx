@@ -146,6 +146,22 @@ var LAYOUT_JSON = "C:/Users/12038/CryptidCluesScripting/output/layout_project.js
         }
         return null;
     }
+    function getWaveWarpComponent(clip) {
+        if (!clip || !clip.components) return null;
+        for (var i = 0; i < clip.components.numItems; i++) {
+            var c = clip.components[i];
+            if (c && c.displayName === "Wave Warp") return c;
+        }
+        return null;
+    }
+    function getOpacityComponent(clip) {
+        if (!clip || !clip.components) return null;
+        for (var i = 0; i < clip.components.numItems; i++) {
+            var c = clip.components[i];
+            if (c && c.displayName === "Opacity") return c;
+        }
+        return null;
+    }
     function getPropByName(comp, name) {
         if (!comp || !comp.properties) return null;
         for (var i = 0; i < comp.properties.numItems; i++) {
@@ -347,6 +363,7 @@ var LAYOUT_JSON = "C:/Users/12038/CryptidCluesScripting/output/layout_project.js
             return;
         }
         var map = buildPlacementMap(layout.placements);
+        /*
         $.writeln("layout:");
         $.writeln(JSON.stringify(layout, null, 2)); // pretty JSON
 
@@ -355,10 +372,13 @@ var LAYOUT_JSON = "C:/Users/12038/CryptidCluesScripting/output/layout_project.js
 
         $.writeln("map:");
         $.writeln(JSON.stringify(map, null, 2));
+        */
 
         
         // k is each track to be added/used here
         for (var k = 0; k < placeable; k++) {
+            $.writeln(k + "  " + "Iteration test, number of placeables: " + placeable);            
+            $.writeln(placeable);
             var projItem = items[k];
             if (!projItem) continue;
 
@@ -375,29 +395,31 @@ var LAYOUT_JSON = "C:/Users/12038/CryptidCluesScripting/output/layout_project.js
                 $.writeln("Failed to place image on V" + (k + 1));
                 continue;
             }
+            var placedClip = vt.clips[vt.clips.numItems - 1];
 
             // Align in/out to the audio clip span
             try {
                 // vt.clips[c] is the current image clip we want
                 // a1.clips[c] is the current audio clip we want
-                $.writeln("Clip info: ");
-                $.writeln(vt.clips[c].name);
+                $.writeln("Clip info: on CURRENT track: " + k);
+                $.writeln(placedClip.name);
                 $.writeln(a1.clips[c].name);
-                vt.clips[c].end = a1.clips[c].end.seconds;
+               placedClip.end = a1.clips[c].end.seconds;
                 //now it's in sequence and aligned, change position and scale
-                $.writeln("Layout usage handling");
-                var motion = getMotionComponent(vt.clips[c]);
-                $.writeln("motion");
-                $.writeln(motion);
+                //$.writeln("Layout usage handling");
+                var motion = getMotionComponent(placedClip);
+                //$.writeln("motion");
+                //$.writeln(motion);
                 if (!motion) {
                     missing.push(name + " (no Motion component)");
                     continue;
                 }
                  //Hard setting Motion components such as position and scale
-                var place = map[vt.clips[c].name];
-                $.writeln("place");
-                $.writeln(place);
+                var place = map[placedClip.name];
+                //$.writeln("place");
+                //$.writeln(place);
                 var params = motionParamsFromPlacement(place);
+                /*
                 $.writeln("params.pos");
                 $.writeln(params.pos);
                 $.writeln(params.pos[0]);
@@ -411,6 +433,7 @@ var LAYOUT_JSON = "C:/Users/12038/CryptidCluesScripting/output/layout_project.js
                 $.writeln(motion.properties[0].displayName);
                 $.writeln("motion.properties[1].displayName");
                 $.writeln(motion.properties[1].displayName);
+                */
                 motion.properties[0].setTimeVarying(false);
                 motion.properties[1].setTimeVarying(false);
                 // need center position, not top left
@@ -418,14 +441,17 @@ var LAYOUT_JSON = "C:/Users/12038/CryptidCluesScripting/output/layout_project.js
                 var top  = Number(place.y);
                 var fw   = Number(place.w);  // final width after scaling
                 var fh   = Number(place.h);  // final height after scaling
+                /*
                 $.writeln("setting to center position");
                 $.writeln(left);
                 $.writeln(place.y);
                 $.writeln(place.w);  // final width after scaling
                 $.writeln(place.h);  // final height after scaling
+                */
                 // Center of rect
                 var cx = left + fw/2;
                 var cy = top  + fh/2;
+                /*
                 $.writeln(cx);
                 $.writeln(cy);
                 $.writeln("layout project w and h");
@@ -433,8 +459,59 @@ var LAYOUT_JSON = "C:/Users/12038/CryptidCluesScripting/output/layout_project.js
                 $.writeln(layout.project.h);
                 $.writeln(cx / layout.project.w);
                 $.writeln(cy / layout.project.h);
+                */
                 motion.properties[0].setValue([cx / layout.project.w, cy / layout.project.h]); //position
                 motion.properties[1].setValue(params.scale);
+                
+                
+                var qeSeq = qe.project.getActiveSequence();
+                // If your video track is V1, leave 0. If it's a different track, set that index.
+                var vTrackIndex = k + existing; // Vn
+                var qeVTrack = qeSeq.getVideoTrackAt(vTrackIndex);
+                var qeItem   = qeVTrack.getItemAt(c);
+
+                // Find effects by name (locale-sensitive)
+                var fxDrop = qe.project.getVideoEffectByName("Drop Shadow");
+                var fxWave = qe.project.getVideoEffectByName("Wave Warp");
+                qeItem.addVideoEffect(fxDrop);
+                qeItem.addVideoEffect(fxDrop);
+                qeItem.addVideoEffect(fxDrop);
+                qeItem.addVideoEffect(fxDrop);
+                qeItem.addVideoEffect(fxDrop);
+                qeItem.addVideoEffect(fxDrop);
+                qeItem.addVideoEffect(fxDrop);
+                qeItem.addVideoEffect(fxWave);
+                var wavewarp = getWaveWarpComponent(placedClip);
+                wavewarp.properties[1].setValue(1); // Wave height?
+                wavewarp.properties[2].setValue(1280); // Wave Width?
+                wavewarp.properties[3].setValue(90); // Wave Direction?
+                wavewarp.properties[4].setValue(0.3); // Wave Speed? 
+                
+                // Setup Opacity, 0% to 100% in 45 frames.
+                var opacityComponent = getOpacityComponent(placedClip);
+                opacityComponent.properties[0].setTimeVarying(true);
+                // Add/overwrite keys
+                //$.writeln("Opacity name");
+                //$.writeln(opacityComponent.properties[0].displayName);
+                
+                // Adding fade in (keep as-is)
+                opacityComponent.properties[0].addKey(placedClip.inPoint.seconds);
+                opacityComponent.properties[0].setValueAtKey(placedClip.inPoint.seconds, 0);
+                var fadeOutTime = placedClip.inPoint.seconds + 1; // seconds until we hit 100% Opacity
+                opacityComponent.properties[0].addKey(fadeOutTime);   
+                opacityComponent.properties[0].setValueAtKey(fadeOutTime, 100);
+
+                // Adding fade out (use inPoint + duration; avoid exact clip end)
+                var clipIn   = placedClip.inPoint.seconds;
+                var clipDur  = placedClip.duration.seconds;
+                var fadeDur  = Math.min(1.0, clipDur);            // 1s fade or shorter if clip < 1s
+                var fadeOutStart = clipIn + clipDur - fadeDur;    // start of fade-out
+                var fadeOutEnd   = clipIn + clipDur - 0.001;      // tiny epsilon before end
+
+                opacityComponent.properties[0].addKey(fadeOutStart);
+                opacityComponent.properties[0].setValueAtKey(fadeOutStart, 100);
+                opacityComponent.properties[0].addKey(fadeOutEnd);
+                opacityComponent.properties[0].setValueAtKey(fadeOutEnd, 0);
                 
             } catch (e) {
                 $.writeln("Error changing clip duration.");
