@@ -1,0 +1,450 @@
+{
+  "meta": {
+    "generated_at": "2025-09-05T02:41:52.502232",
+    "bin": {
+      "width": 1920,
+      "height": 1080,
+      "aspect": 1.7777777777777777
+    },
+    "central_box": {
+      "x": 800,
+      "y": 450,
+      "w": 320,
+      "h": 180,
+      "image_path": "D:/Youtube/CryptidClues/Channel Art/CenterCard.png"
+    },
+    "zspec": {
+      "underlay": 200,
+      "text": 300,
+      "image": 400,
+      "frame": 410,
+      "border": 420,
+      "links": 550,
+      "title": 580,
+      "pin": 600
+    },
+    "center_pin_index": 6
+  },
+  "items": [
+    {
+      "image_path": "C:/Users/12038/CryptidCluesScripting/test_images/seg03/ararat_anomaly_1949_Frame 2_closeup.jpg",
+      "image_box": {
+        "x": 1180,
+        "y": 463,
+        "w": 280,
+        "h": 155
+      },
+      "under_box": {
+        "x": 1293,
+        "y": 349,
+        "w": 224,
+        "h": 124
+      },
+      "under_good_zone": {
+        "x": 1293,
+        "y": 349,
+        "w": 224,
+        "h": 114
+      },
+      "text_box": {
+        "x": 1310.92,
+        "y": 358.12,
+        "w": 188.16,
+        "h": 95.75999999999999
+      },
+      "title_box": {
+        "x": 1112,
+        "y": 481,
+        "w": 140,
+        "h": 23,
+        "overlap_frac": 0.5128659055761324,
+        "pin_side": "left"
+      },
+      "outer_box": {
+        "x": 1061,
+        "y": 322,
+        "w": 575,
+        "h": 323,
+        "aspect": 1.7777777777777777
+      },
+      "zoom_percent": 334.3653250773994,
+      "pin_index": 0,
+      "layers": {
+        "underlay": 200,
+        "text": 300,
+        "image": 400,
+        "frame": 410,
+        "border": 420,
+        "links": 550,
+        "title": 580,
+        "pin": 600
+      }
+    },
+    {
+      "image_path": "C:/Users/12038/CryptidCluesScripting/test_images/seg03/WorldView-3.png",
+      "image_box": {
+        "x": 1057,
+        "y": 716,
+        "w": 214,
+        "h": 280
+      },
+      "under_box": {
+        "x": 900,
+        "y": 779,
+        "w": 171,
+        "h": 224
+      },
+      "under_good_zone": {
+        "x": 900,
+        "y": 779,
+        "w": 157,
+        "h": 224
+      },
+      "text_box": {
+        "x": 912.56,
+        "y": 796.92,
+        "w": 131.88,
+        "h": 188.16
+      },
+      "title_box": {
+        "x": 1217,
+        "y": 780,
+        "w": 107,
+        "h": 39,
+        "overlap_frac": 0.5057937392342502,
+        "pin_side": "right"
+      },
+      "outer_box": {
+        "x": 781,
+        "y": 688,
+        "w": 609,
+        "h": 342,
+        "aspect": 1.7777777777777777
+      },
+      "zoom_percent": 315.7894736842105,
+      "pin_index": 1,
+      "layers": {
+        "underlay": 200,
+        "text": 300,
+        "image": 400,
+        "frame": 410,
+        "border": 420,
+        "links": 550,
+        "title": 580,
+        "pin": 600
+      }
+    },
+    {
+      "image_path": "C:/Users/12038/CryptidCluesScripting/test_images/seg03/1949-f6_BIGAD.jpg",
+      "image_box": {
+        "x": 599,
+        "y": 735,
+        "w": 280,
+        "h": 230
+      },
+      "under_box": {
+        "x": 573,
+        "y": 566,
+        "w": 224,
+        "h": 184
+      },
+      "under_good_zone": {
+        "x": 573,
+        "y": 566,
+        "w": 224,
+        "h": 169
+      },
+      "text_box": {
+        "x": 590.92,
+        "y": 579.52,
+        "w": 188.16,
+        "h": 141.96
+      },
+      "title_box": {
+        "x": 810,
+        "y": 802,
+        "w": 139,
+        "h": 37,
+        "overlap_frac": 0.49320116340206305,
+        "pin_side": "right"
+      },
+      "outer_box": {
+        "x": 316,
+        "y": 535,
+        "w": 820,
+        "h": 461,
+        "aspect": 1.7777777777777777
+      },
+      "zoom_percent": 234.27331887201737,
+      "pin_index": 2,
+      "layers": {
+        "underlay": 200,
+        "text": 300,
+        "image": 400,
+        "frame": 410,
+        "border": 420,
+        "links": 550,
+        "title": 580,
+        "pin": 600
+      }
+    },
+    {
+      "image_path": "C:/Users/12038/CryptidCluesScripting/test_images/seg03/cms_page_media64ikonos.png__500.0x415.0_subsampling-2.png",
+      "image_box": {
+        "x": 440,
+        "y": 392,
+        "w": 280,
+        "h": 232
+      },
+      "under_box": {
+        "x": 234,
+        "y": 303,
+        "w": 224,
+        "h": 186
+      },
+      "under_good_zone": {
+        "x": 234,
+        "y": 303,
+        "w": 206,
+        "h": 186
+      },
+      "text_box": {
+        "x": 250.48,
+        "y": 317.88,
+        "w": 173.04,
+        "h": 156.24
+      },
+      "title_box": {
+        "x": 362,
+        "y": 447,
+        "w": 125,
+        "h": 28,
+        "overlap_frac": 0.37736007126659726,
+        "pin_side": "left"
+      },
+      "outer_box": {
+        "x": 141,
+        "y": 274,
+        "w": 673,
+        "h": 378,
+        "aspect": 1.7777777777777777
+      },
+      "zoom_percent": 285.7142857142857,
+      "pin_index": 3,
+      "layers": {
+        "underlay": 200,
+        "text": 300,
+        "image": 400,
+        "frame": 410,
+        "border": 420,
+        "links": 550,
+        "title": 580,
+        "pin": 600
+      }
+    },
+    {
+      "image_path": "C:/Users/12038/CryptidCluesScripting/test_images/seg03/Noaks_ark_(skizz).jpg",
+      "image_box": {
+        "x": 659,
+        "y": 88,
+        "w": 280,
+        "h": 220
+      },
+      "under_box": {
+        "x": 453,
+        "y": 41,
+        "w": 224,
+        "h": 176
+      },
+      "under_good_zone": {
+        "x": 453,
+        "y": 41,
+        "w": 206,
+        "h": 176
+      },
+      "text_box": {
+        "x": 469.48,
+        "y": 55.08,
+        "w": 173.04,
+        "h": 147.84
+      },
+      "title_box": {
+        "x": 799,
+        "y": 292,
+        "w": 130,
+        "h": 35,
+        "overlap_frac": 0.44915397120206596,
+        "pin_side": "bottom"
+      },
+      "outer_box": {
+        "x": 411,
+        "y": 14,
+        "w": 571,
+        "h": 321,
+        "aspect": 1.7777777777777777
+      },
+      "zoom_percent": 336.4485981308411,
+      "pin_index": 4,
+      "layers": {
+        "underlay": 200,
+        "text": 300,
+        "image": 400,
+        "frame": 410,
+        "border": 420,
+        "links": 550,
+        "title": 580,
+        "pin": 600
+      }
+    },
+    {
+      "image_path": "C:/Users/12038/CryptidCluesScripting/test_images/seg03/anomaly1989a.jpg",
+      "image_box": {
+        "x": 996,
+        "y": 173,
+        "w": 277,
+        "h": 124
+      },
+      "under_box": {
+        "x": 889,
+        "y": 289,
+        "w": 222,
+        "h": 99
+      },
+      "under_good_zone": {
+        "x": 889,
+        "y": 297,
+        "w": 222,
+        "h": 91
+      },
+      "text_box": {
+        "x": 906.76,
+        "y": 304.28,
+        "w": 186.48,
+        "h": 76.44
+      },
+      "title_box": {
+        "x": 1138,
+        "y": 286,
+        "w": 141,
+        "h": 22,
+        "overlap_frac": 0.49534608532065805,
+        "pin_side": "bottom"
+      },
+      "outer_box": {
+        "x": 845,
+        "y": 147,
+        "w": 473,
+        "h": 266,
+        "aspect": 1.7777777777777777
+      },
+      "zoom_percent": 406.015037593985,
+      "pin_index": 5,
+      "layers": {
+        "underlay": 200,
+        "text": 300,
+        "image": 400,
+        "frame": 410,
+        "border": 420,
+        "links": 550,
+        "title": 580,
+        "pin": 600
+      }
+    }
+  ],
+  "pins": [
+    {
+      "x": 1185.0,
+      "y": 492.6985123705726
+    },
+    {
+      "x": 1265.0,
+      "y": 799.7552750845842
+    },
+    {
+      "x": 873.0,
+      "y": 820.0204408304646
+    },
+    {
+      "x": 446.0,
+      "y": 460.61545621762883
+    },
+    {
+      "x": 864.2680436912618,
+      "y": 302.0
+    },
+    {
+      "x": 1208.6445723422225,
+      "y": 292.0
+    },
+    {
+      "x": 1115.0,
+      "y": 494.70866552457545
+    }
+  ],
+  "links": [
+    [
+      2,
+      4
+    ],
+    [
+      0,
+      4
+    ],
+    [
+      3,
+      4
+    ],
+    [
+      4,
+      6
+    ],
+    [
+      1,
+      4
+    ],
+    [
+      0,
+      6
+    ],
+    [
+      2,
+      3
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      4,
+      5
+    ],
+    [
+      2,
+      6
+    ],
+    [
+      5,
+      6
+    ],
+    [
+      0,
+      5
+    ],
+    [
+      3,
+      6
+    ],
+    [
+      1,
+      6
+    ],
+    [
+      2,
+      5
+    ],
+    [
+      3,
+      5
+    ]
+  ]
+}
