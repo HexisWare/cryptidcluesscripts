@@ -337,7 +337,7 @@ var LAYOUT_JSON = "C:/Users/12038/CryptidCluesScripting/output/layout_project.js
 
         // Ensure (or attempt) enough tracks to stack them; degrade if QE can't add
         // Ensure enough tracks equal images within segment folder
-        var existing = 2;    // will be used to offset so already placed clips on existing tracks will be skipped    
+        var existing = 1;    // will be used to offset so already placed clips on existing tracks will be skipped    
         var want = items.length + existing;
         var have = ensureVideoTracks(want);
         var placeable = Math.min(want, have);

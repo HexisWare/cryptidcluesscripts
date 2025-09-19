@@ -15,7 +15,8 @@ ANGLE_JITTER_DEG = 8
 MAX_RETRIES_PER_ITEM = 40
 
 # Images
-IMG_DIR = r"C:/Users/12038/CryptidCluesScripting/test_images/seg03/"
+# IMG_DIR = r"C:/Users/12038/CryptidCluesScripting/test_images/seg03/"
+IMG_DIR = r"C:/Users/12038/CryptidCluesScripting/ConspBoardScripting/intro_images/"
 CENTER_IMG = r"D:/Youtube/CryptidClues/Channel Art/CenterCard.png"
 
 EXTS = {".jpg", ".jpeg", ".png", ".gif", ".tif", ".tiff", ".bmp", ".webp"}

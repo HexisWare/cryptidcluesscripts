@@ -1,0 +1,81 @@
+## Order of Scripts
+
+Assuming you have a script ready, have done the recording and got pictures to be aligned per script segment.
+
+
+
+#### Conspiracy Board Prep
+Main script: `python .\ConspBoardScripting\imagePrePrep.py "C:/Users/12038/CryptidCluesScripting/test_images/seg*"`.
+
+This mainly receives a folder of images, adds a white border, and spits the image back out.
+
+Input:
+Segment specific image folders, does 1 at a time.
+
+Output:
+Same images but modified for video/intro pieces. Added white borders/potential more handling.
+
+#### Conspiracy Board Itself - Python
+Main Script: `python .\ConspBoardScripting\boxLayoutGenerator.py`
+
+This script takes IMG_DIR and CENTR_IMG as an image baseline and center image piece to place. It then lays out the images onto a conspiracy board. It takes the images and preps plans for where text boxes, title boxes, and image boxes go.
+
+Input:
+Images directory.
+
+Output:
+layout_export.json          |           Contains layout information
+layout_export_names.txt     |           Contains text box information, has to be manually filled out
+
+#### Conspiracy Board Itself - Photoshop
+Main Script: `conspiracyboardsetterPhotoshopLayoutSetter.jsx`
+
+Need to run it in ExtendScript connected to Photoshop.
+Should work off a given conspiracy board template. with defined background.
+
+Input:
+From the Python Script:
+layout_export.json          |           Contains layout information
+layout_export_names.txt     |           Contains text box information, has to be manually filled out
+
+Output:
+conspiracy board image.png  |           Contains the used layout of images placed with text boxes. Manual template open/prep with manual export of png after script runs. Should be saving to: `D:\Youtube\CryptidClues\Season3\images\CoverPDF\layoutinputconspboard.png`
+
+#### Conspiracy Board Animator - Premiere
+Main Script: `conspiracyboardsetterPremiereViewerMovement.jsx`
+
+Make new project off a template from Templates/
+Make a subsequence from background image.
+Replace background image with image output from Photoscop script.
+Run extendscript main script using Extendscript and open premiere sequence.
+If the consp image is on track 1, this should be successful.
+
+Input:
+Image from python jsx script
+existing sequence ready to go
+
+Output:
+animated sequence with zoom-ins and movement set.
+
+Intro done! (just need to manually copy it over into actual sequence with voice over added.)
+
+#### Video Setter - Premiere
+Main Script: `AudioSegmentCollageConnected.jsx`
+
+Takes in an images directory and an open premiere project sequence, goes through folders of images and applies images per recording segment. So for the first script recording segment 1, will apply seg01 images from image path, so on. Script assumes the only audio segments that exist are the applied segments (so no intro so on). Requires manual addition of template with manual addition of recorded audio segments.
+
+Edit "existing" variable, set it to used tracks in template. If the template has 6 used video tracks, set it to 6 so the script places the images ABOVE track 6, so on.
+
+
+##### Items needed for scripts above:
+`AudioSegmentCollageConnected.jsx`:
+Fix affect additions, goes to track 3 (or 3rd from top) and doesnt apply ANY effects to anything above track 3. Had this previosuly fixed, was due to using wrong reference clip when looping through images in tracks.
+
+Fix seg looping, previosuly fixed this too was due to mishandling in looping through audio track folder paths. seg10 vs seg010 issues. ENSURE seg10 gets used in this process between the invoked python scripting and this jsx file.
+
+Fix resolution handling, maybe make a new template thats 1920x1080 THEN just use that, then experiment ramping up quality. Pre-configurations?
+
+Find a way to apply visual affects, specifically that brown coded one (couldnt get it before).
+
+`general`
+Somehow COMBINE the above into ONE sequence? Instead of many manual runs and processes/handling. ONE pipeline please.

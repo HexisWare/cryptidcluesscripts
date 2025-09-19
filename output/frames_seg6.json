@@ -1,0 +1,259 @@
+{
+  "bin": {
+    "w": 1326,
+    "h": 1080
+  },
+  "frames": [
+    {
+      "mode": "bin",
+      "frame_w": 1326,
+      "frame_h": 1080,
+      "title": "iter0_random_pack",
+      "coverage": 0.8223618792246243,
+      "placements": [
+        {
+          "id": "640px-Kuomintang_Party_in_Xinjiang_1942.jpg",
+          "x": 638,
+          "y": 563,
+          "w": 620,
+          "h": 447,
+          "scale": 0.96875,
+          "w0": 640,
+          "h0": 462
+        },
+        {
+          "id": "Kmt_local_elections.jpg",
+          "x": 638,
+          "y": 6,
+          "w": 620,
+          "h": 545,
+          "scale": 0.96875,
+          "w0": 640,
+          "h0": 563
+        },
+        {
+          "id": "The_Arm-co-operator,_April_1959_-_DPLA_-_8edc6eb7c40bb4c07cf6efd1388c3b9a_(page_4).jpg",
+          "x": 6,
+          "y": 6,
+          "w": 484,
+          "h": 677,
+          "scale": 0.968,
+          "w0": 500,
+          "h0": 699
+        },
+        {
+          "id": "Toshi_Shimizu,_Chairman_Wang_of_Chinese_National_Government_Inspects_the_Troop.jpg",
+          "x": 6,
+          "y": 695,
+          "w": 620,
+          "h": 379,
+          "scale": 0.96875,
+          "w0": 640,
+          "h0": 391
+        }
+      ]
+    },
+    {
+      "mode": "bin",
+      "frame_w": 1326,
+      "frame_h": 1080,
+      "title": "iter1",
+      "coverage": 0.8724631305513658,
+      "placements": [
+        {
+          "id": "The_Arm-co-operator,_April_1959_-_DPLA_-_8edc6eb7c40bb4c07cf6efd1388c3b9a_(page_4).jpg",
+          "x": 6,
+          "y": 6,
+          "w": 489,
+          "h": 683,
+          "scale": 0.977110157367668,
+          "w0": 500,
+          "h0": 699
+        },
+        {
+          "id": "Kmt_local_elections.jpg",
+          "x": 501,
+          "y": 6,
+          "w": 626,
+          "h": 551,
+          "scale": 0.9786856127886323,
+          "w0": 640,
+          "h0": 563
+        },
+        {
+          "id": "640px-Kuomintang_Party_in_Xinjiang_1942.jpg",
+          "x": 632,
+          "y": 563,
+          "w": 682,
+          "h": 492,
+          "scale": 1.065625,
+          "w0": 640,
+          "h0": 462
+        },
+        {
+          "id": "Toshi_Shimizu,_Chairman_Wang_of_Chinese_National_Government_Inspects_the_Troop.jpg",
+          "x": 6,
+          "y": 695,
+          "w": 620,
+          "h": 379,
+          "scale": 0.969309462915601,
+          "w0": 640,
+          "h0": 391
+        }
+      ]
+    },
+    {
+      "mode": "bin",
+      "frame_w": 1326,
+      "frame_h": 1080,
+      "title": "iter2",
+      "coverage": 0.876926568348137,
+      "placements": [
+        {
+          "id": "The_Arm-co-operator,_April_1959_-_DPLA_-_8edc6eb7c40bb4c07cf6efd1388c3b9a_(page_4).jpg",
+          "x": 6,
+          "y": 6,
+          "w": 489,
+          "h": 683,
+          "scale": 0.977110157367668,
+          "w0": 500,
+          "h0": 699
+        },
+        {
+          "id": "Kmt_local_elections.jpg",
+          "x": 501,
+          "y": 6,
+          "w": 626,
+          "h": 551,
+          "scale": 0.9786856127886323,
+          "w0": 640,
+          "h0": 563
+        },
+        {
+          "id": "640px-Kuomintang_Party_in_Xinjiang_1942.jpg",
+          "x": 632,
+          "y": 563,
+          "w": 688,
+          "h": 497,
+          "scale": 1.075,
+          "w0": 640,
+          "h0": 462
+        },
+        {
+          "id": "Toshi_Shimizu,_Chairman_Wang_of_Chinese_National_Government_Inspects_the_Troop.jpg",
+          "x": 6,
+          "y": 695,
+          "w": 620,
+          "h": 379,
+          "scale": 0.969309462915601,
+          "w0": 640,
+          "h0": 391
+        }
+      ]
+    },
+    {
+      "mode": "bin",
+      "frame_w": 1326,
+      "frame_h": 1080,
+      "title": "iter3",
+      "coverage": 0.876926568348137,
+      "placements": [
+        {
+          "id": "The_Arm-co-operator,_April_1959_-_DPLA_-_8edc6eb7c40bb4c07cf6efd1388c3b9a_(page_4).jpg",
+          "x": 6,
+          "y": 6,
+          "w": 489,
+          "h": 683,
+          "scale": 0.977110157367668,
+          "w0": 500,
+          "h0": 699
+        },
+        {
+          "id": "Kmt_local_elections.jpg",
+          "x": 501,
+          "y": 6,
+          "w": 626,
+          "h": 551,
+          "scale": 0.9786856127886323,
+          "w0": 640,
+          "h0": 563
+        },
+        {
+          "id": "640px-Kuomintang_Party_in_Xinjiang_1942.jpg",
+          "x": 632,
+          "y": 563,
+          "w": 688,
+          "h": 497,
+          "scale": 1.075,
+          "w0": 640,
+          "h0": 462
+        },
+        {
+          "id": "Toshi_Shimizu,_Chairman_Wang_of_Chinese_National_Government_Inspects_the_Troop.jpg",
+          "x": 6,
+          "y": 695,
+          "w": 620,
+          "h": 379,
+          "scale": 0.969309462915601,
+          "w0": 640,
+          "h0": 391
+        }
+      ]
+    },
+    {
+      "mode": "project",
+      "frame_w": 1920,
+      "frame_h": 1080,
+      "title": "Project overlay (bin inside project)",
+      "coverage": 0.6056274112654321,
+      "placements": [
+        {
+          "id": "The_Arm-co-operator,_April_1959_-_DPLA_-_8edc6eb7c40bb4c07cf6efd1388c3b9a_(page_4).jpg",
+          "x": 600,
+          "y": 6,
+          "w": 489,
+          "h": 683,
+          "scale": 0.977110157367668,
+          "w0": 500,
+          "h0": 699
+        },
+        {
+          "id": "Kmt_local_elections.jpg",
+          "x": 1095,
+          "y": 6,
+          "w": 626,
+          "h": 551,
+          "scale": 0.9786856127886323,
+          "w0": 640,
+          "h0": 563
+        },
+        {
+          "id": "640px-Kuomintang_Party_in_Xinjiang_1942.jpg",
+          "x": 1226,
+          "y": 563,
+          "w": 688,
+          "h": 497,
+          "scale": 1.075,
+          "w0": 640,
+          "h0": 462
+        },
+        {
+          "id": "Toshi_Shimizu,_Chairman_Wang_of_Chinese_National_Government_Inspects_the_Troop.jpg",
+          "x": 600,
+          "y": 695,
+          "w": 620,
+          "h": 379,
+          "scale": 0.969309462915601,
+          "w0": 640,
+          "h0": 391
+        }
+      ],
+      "bin_rect": {
+        "x": 594,
+        "y": 0,
+        "w": 1326,
+        "h": 1080
+      }
+    }
+  ]
+}

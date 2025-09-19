@@ -1,0 +1,259 @@
+{
+  "bin": {
+    "w": 1326,
+    "h": 1080
+  },
+  "frames": [
+    {
+      "mode": "bin",
+      "frame_w": 1326,
+      "frame_h": 1080,
+      "title": "iter0_random_pack",
+      "coverage": 0.6935010613932182,
+      "placements": [
+        {
+          "id": "Image_from_page_328_of__Travels_of_a_consular_officer_in_eastern_Tibet_-_together_with_a_history_of_the_relations_between_China,_Tibet_and_India__(1922).jpg",
+          "x": 896,
+          "y": 6,
+          "w": 423,
+          "h": 242,
+          "scale": 0.6609375,
+          "w0": 640,
+          "h0": 366
+        },
+        {
+          "id": "Screenshot 2025-09-06 200018.png",
+          "x": 627,
+          "y": 534,
+          "w": 292,
+          "h": 425,
+          "scale": 0.6621315192743764,
+          "w0": 441,
+          "h0": 643
+        },
+        {
+          "id": "Screenshot 2025-09-06 201329.png",
+          "x": 6,
+          "y": 534,
+          "w": 609,
+          "h": 515,
+          "scale": 0.6612377850162866,
+          "w0": 921,
+          "h0": 779
+        },
+        {
+          "id": "Screenshot 2025-09-09 201659.png",
+          "x": 6,
+          "y": 6,
+          "w": 878,
+          "h": 516,
+          "scale": 0.661144578313253,
+          "w0": 1328,
+          "h0": 781
+        }
+      ]
+    },
+    {
+      "mode": "bin",
+      "frame_w": 1326,
+      "frame_h": 1080,
+      "title": "iter1",
+      "coverage": 0.7554661750740183,
+      "placements": [
+        {
+          "id": "Screenshot 2025-09-09 201659.png",
+          "x": 6,
+          "y": 6,
+          "w": 884,
+          "h": 520,
+          "scale": 0.6656626506024096,
+          "w0": 1328,
+          "h0": 781
+        },
+        {
+          "id": "Image_from_page_328_of__Travels_of_a_consular_officer_in_eastern_Tibet_-_together_with_a_history_of_the_relations_between_China,_Tibet_and_India__(1922).jpg",
+          "x": 633,
+          "y": 558,
+          "w": 424,
+          "h": 242,
+          "scale": 0.6625,
+          "w0": 640,
+          "h0": 366
+        },
+        {
+          "id": "Screenshot 2025-09-06 201329.png",
+          "x": 6,
+          "y": 538,
+          "w": 615,
+          "h": 520,
+          "scale": 0.6677524429967426,
+          "w0": 921,
+          "h0": 779
+        },
+        {
+          "id": "Screenshot 2025-09-06 200018.png",
+          "x": 902,
+          "y": 6,
+          "w": 370,
+          "h": 540,
+          "scale": 0.8398133748055988,
+          "w0": 441,
+          "h0": 643
+        }
+      ]
+    },
+    {
+      "mode": "bin",
+      "frame_w": 1326,
+      "frame_h": 1080,
+      "title": "iter2",
+      "coverage": 0.8838123568515726,
+      "placements": [
+        {
+          "id": "Screenshot 2025-09-09 201659.png",
+          "x": 6,
+          "y": 6,
+          "w": 890,
+          "h": 523,
+          "scale": 0.6701807228915663,
+          "w0": 1328,
+          "h0": 781
+        },
+        {
+          "id": "Screenshot 2025-09-06 200018.png",
+          "x": 902,
+          "y": 6,
+          "w": 374,
+          "h": 546,
+          "scale": 0.8491446345256609,
+          "w0": 441,
+          "h0": 643
+        },
+        {
+          "id": "Screenshot 2025-09-06 201329.png",
+          "x": 6,
+          "y": 535,
+          "w": 621,
+          "h": 525,
+          "scale": 0.6742671009771987,
+          "w0": 921,
+          "h0": 779
+        },
+        {
+          "id": "Image_from_page_328_of__Travels_of_a_consular_officer_in_eastern_Tibet_-_together_with_a_history_of_the_relations_between_China,_Tibet_and_India__(1922).jpg",
+          "x": 633,
+          "y": 558,
+          "w": 687,
+          "h": 393,
+          "scale": 1.0734375,
+          "w0": 640,
+          "h0": 366
+        }
+      ]
+    },
+    {
+      "mode": "bin",
+      "frame_w": 1326,
+      "frame_h": 1080,
+      "title": "iter3",
+      "coverage": 0.8838123568515726,
+      "placements": [
+        {
+          "id": "Screenshot 2025-09-09 201659.png",
+          "x": 6,
+          "y": 6,
+          "w": 890,
+          "h": 523,
+          "scale": 0.6701807228915663,
+          "w0": 1328,
+          "h0": 781
+        },
+        {
+          "id": "Screenshot 2025-09-06 200018.png",
+          "x": 902,
+          "y": 6,
+          "w": 374,
+          "h": 546,
+          "scale": 0.8491446345256609,
+          "w0": 441,
+          "h0": 643
+        },
+        {
+          "id": "Screenshot 2025-09-06 201329.png",
+          "x": 6,
+          "y": 535,
+          "w": 621,
+          "h": 525,
+          "scale": 0.6742671009771987,
+          "w0": 921,
+          "h0": 779
+        },
+        {
+          "id": "Image_from_page_328_of__Travels_of_a_consular_officer_in_eastern_Tibet_-_together_with_a_history_of_the_relations_between_China,_Tibet_and_India__(1922).jpg",
+          "x": 633,
+          "y": 558,
+          "w": 687,
+          "h": 393,
+          "scale": 1.0734375,
+          "w0": 640,
+          "h0": 366
+        }
+      ]
+    },
+    {
+      "mode": "project",
+      "frame_w": 1920,
+      "frame_h": 1080,
+      "title": "Project overlay (bin inside project)",
+      "coverage": 0.6103829089506173,
+      "placements": [
+        {
+          "id": "Screenshot 2025-09-09 201659.png",
+          "x": 600,
+          "y": 6,
+          "w": 890,
+          "h": 523,
+          "scale": 0.6701807228915663,
+          "w0": 1328,
+          "h0": 781
+        },
+        {
+          "id": "Screenshot 2025-09-06 200018.png",
+          "x": 1496,
+          "y": 6,
+          "w": 374,
+          "h": 546,
+          "scale": 0.8491446345256609,
+          "w0": 441,
+          "h0": 643
+        },
+        {
+          "id": "Screenshot 2025-09-06 201329.png",
+          "x": 600,
+          "y": 535,
+          "w": 621,
+          "h": 525,
+          "scale": 0.6742671009771987,
+          "w0": 921,
+          "h0": 779
+        },
+        {
+          "id": "Image_from_page_328_of__Travels_of_a_consular_officer_in_eastern_Tibet_-_together_with_a_history_of_the_relations_between_China,_Tibet_and_India__(1922).jpg",
+          "x": 1227,
+          "y": 558,
+          "w": 687,
+          "h": 393,
+          "scale": 1.0734375,
+          "w0": 640,
+          "h0": 366
+        }
+      ],
+      "bin_rect": {
+        "x": 594,
+        "y": 0,
+        "w": 1326,
+        "h": 1080
+      }
+    }
+  ]
+}
