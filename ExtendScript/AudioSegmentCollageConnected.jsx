@@ -24,10 +24,19 @@ var LAYOUT_JSON = "C:/Users/12038/CryptidCluesScripting/output/layout_project.js
     var qeSeq = (typeof qe !== "undefined" && qe.project) ? qe.project.getActiveSequence() : null;
 
     // --- Helpers ---
-    function pad2(n) { return (n < 10 ? "0" : "") + n; }
+    //function pad2(n) { return (n < 10 ? "0" : "") + n; }
 
     function getFolderForSegment(segIndex) {
-        var segName = "seg" + pad2(segIndex);
+        var segName = "seg"
+        if (segIndex > 9) {
+            $.writeln("segIndex larger than 9, regular append");
+            segName = segName + segIndex;
+            $.writeln("segName: " + segName);
+        }
+        else {
+            //IF segIndex < 10, pad it with a 0 (so 9 = 09 so on)
+            segName = segName + "0" + segIndex;
+        }
         var f = new Folder(imagesDirectoryPath + "/" + segName);
         return f.exists ? f : null;
     }
@@ -82,30 +91,9 @@ var LAYOUT_JSON = "C:/Users/12038/CryptidCluesScripting/output/layout_project.js
 
         var toAdd = minCount - current;
         var added = 0;
-
-        /*
-        // Preferred: QE addTracks(videoCount, audioCount)
-        if (qeSeq && typeof qeSeq.addTracks === "function") {
-            try {
-                for (var i = 0; i < toAdd; i++) { qeSeq.addTracks(1, 0); added++; }
-            } catch (e1) { $.writeln("qeSeq.addTracks failed: " + e1); }
-        }
-
-        // Fallback: QE addVideoTrack()
-        if (added < toAdd && qeSeq && typeof qeSeq.addVideoTrack === "function") {
-            try {
-                for (var j = added; j < toAdd; j++) { qeSeq.addVideoTrack(); added++; }
-            } catch (e2) { $.writeln("qeSeq.addVideoTrack failed: " + e2); }
-        }
-        
-        */
-    
-        /*
-            // Example: Add 1 video and 1 audio track after the current third video track
-            activeSequence.addTracks(1, 3, 1, 3); // numVideo, afterVideo, numAudio, afterAudio
-            */
+        $.writeln("ensureVideoTracks items: " + "toAdd: " + toAdd + " current: " + current + " minCount: " + minCount);
         try {
-            for (var i = 0; i < toAdd; i++) { qeSeq.addTracks(1,3,0); added++; }
+            for (var i = 0; i < toAdd; i++) { qeSeq.addTracks(1,1,0); added++; }
         } catch (e1) { $.writeln("qeSeq.addTracks failed: " + e1); }
 
         // Return how many tracks are now available
@@ -229,6 +217,39 @@ var LAYOUT_JSON = "C:/Users/12038/CryptidCluesScripting/output/layout_project.js
 
     $.writeln("Found " + numAudioClips + " audio clip(s) on A1.");
 
+    
+    var existing = 1;
+    // Place tracks first
+    for (var c = 0; c < numAudioClips; c++) {
+        var segFolder = getFolderForSegment(c + 1);
+        if (!segFolder) {
+            $.writeln("Skip: folder not found for segment " + (c + 1));
+            continue;
+        }
+        var files = listImageFiles(segFolder);
+        if (!files.length) {
+            $.writeln("Skip: no images in " + segFolder.fsName);
+            continue;
+        }
+        var items = importFilesReturnItems(files);
+        if (!items.length) {
+            $.writeln("Skip: could not import images from " + segFolder.fsName);
+            continue;
+        }
+        //var existing = 1;    // will be used to offset so already placed clips on existing tracks will be skipped    
+        // want = How many tracks would be needed
+        var want = items.length + existing;
+        var have = ensureVideoTracks(want);
+    }
+    //arrays to be used for video clip offsets for varying clip stack sizes per new track
+    var clipsPerTrack = [];
+    for (var i = 0; i < seq.videoTracks.numTracks - existing; i++) {
+        clipsPerTrack.push(0);
+    }
+    $.writeln("Offset array clipsPerTrack: ");
+    $.writeln(clipsPerTrack);
+    //zeros is now [0,0,0,0,0]
+
     // For each A1 audio clip, import images from segNN and align each to the clip span
     for (var c = 0; c < numAudioClips; c++) {
         
@@ -271,7 +292,14 @@ var LAYOUT_JSON = "C:/Users/12038/CryptidCluesScripting/output/layout_project.js
         }
 
         $.writeln("Invoking python script");
-        $.writeln(" using images in this directory: " + "C:/Users/12038/CryptidCluesScripting/test_images/seg0" + (c + 1));
+        var segmentedPath = "C:/Users/12038/CryptidCluesScripting/test_images/seg"
+        if ((c + 1) > 9) {
+            segmentedPath = segmentedPath + (c + 1);
+        }
+        else {
+            segmentedPath = segmentedPath + "0" + (c + 1);
+        }
+        $.writeln(" using images in this directory: " + segmentedPath);
 
         var outJson = "C:/Users/12038/CryptidCluesScripting/output/layout_project_seg" + (c + 1) + ".json";
         LAYOUT_JSON = outJson;
@@ -282,7 +310,7 @@ var LAYOUT_JSON = "C:/Users/12038/CryptidCluesScripting/output/layout_project.js
             "C:/Users/12038/AppData/Local/Programs/Python/Python311/python.exe",
             "C:/Users/12038/CryptidCluesScripting/2DBinMaxReactPacking.py",
             [
-              "--images-dir", "C:/Users/12038/CryptidCluesScripting/test_images/seg0" + (c + 1),
+              "--images-dir", segmentedPath,
               "--bin", "1326x1080",
               "--padding", "6",
               "--iters", "3",
@@ -305,7 +333,7 @@ var LAYOUT_JSON = "C:/Users/12038/CryptidCluesScripting/output/layout_project.js
 
         
         
-        
+        // Take first audio track, c=0 up to numAudioClips (but not equal)
         var clip = a1.clips[c];
         if (!clip) continue;
 
@@ -338,6 +366,7 @@ var LAYOUT_JSON = "C:/Users/12038/CryptidCluesScripting/output/layout_project.js
         // Ensure (or attempt) enough tracks to stack them; degrade if QE can't add
         // Ensure enough tracks equal images within segment folder
         var existing = 1;    // will be used to offset so already placed clips on existing tracks will be skipped    
+        // want = How many tracks would be needed
         var want = items.length + existing;
         var have = ensureVideoTracks(want);
         var placeable = Math.min(want, have);
@@ -363,16 +392,6 @@ var LAYOUT_JSON = "C:/Users/12038/CryptidCluesScripting/output/layout_project.js
             return;
         }
         var map = buildPlacementMap(layout.placements);
-        /*
-        $.writeln("layout:");
-        $.writeln(JSON.stringify(layout, null, 2)); // pretty JSON
-
-        $.writeln("layout placements:");
-        $.writeln(JSON.stringify(layout.placements, null, 2));
-
-        $.writeln("map:");
-        $.writeln(JSON.stringify(map, null, 2));
-        */
 
         
         // k is each track to be added/used here
@@ -383,14 +402,17 @@ var LAYOUT_JSON = "C:/Users/12038/CryptidCluesScripting/output/layout_project.js
             if (!projItem) continue;
 
             var vt = seq.videoTracks[k + existing]; // V1..Vn
-            var startTime = timeFromTicks(startTicks);
-            if (c != 0) {
-                // if we are on the second iteration, just use previous clip info
-                startTime = a1.clips[c - 1].end.ticks;
-            }
+            // var startTime = timeFromTicks(startTicks);
+            // if (c != 0) {
+            //     // if we are on the second iteration, just use previous clip info
+            //     startTime = a1.clips[c - 1].end.ticks;
+            // }
+            var startTime = new Time();
+            startTime.ticks = a1.clips[c].start.ticks;
 
             // Overwrite at the clip start
             var newTI = vt.overwriteClip(projItem, startTime);
+            clipsPerTrack[k] = clipsPerTrack[k] + 1;
             if (!newTI) {
                 $.writeln("Failed to place image on V" + (k + 1));
                 continue;
@@ -404,7 +426,7 @@ var LAYOUT_JSON = "C:/Users/12038/CryptidCluesScripting/output/layout_project.js
                 $.writeln("Clip info: on CURRENT track: " + k);
                 $.writeln(placedClip.name);
                 $.writeln(a1.clips[c].name);
-               placedClip.end = a1.clips[c].end.seconds;
+                placedClip.end = a1.clips[c].end.seconds;
                 //now it's in sequence and aligned, change position and scale
                 //$.writeln("Layout usage handling");
                 var motion = getMotionComponent(placedClip);
@@ -419,21 +441,6 @@ var LAYOUT_JSON = "C:/Users/12038/CryptidCluesScripting/output/layout_project.js
                 //$.writeln("place");
                 //$.writeln(place);
                 var params = motionParamsFromPlacement(place);
-                /*
-                $.writeln("params.pos");
-                $.writeln(params.pos);
-                $.writeln(params.pos[0]);
-                $.writeln(params.pos[1]);
-                $.writeln("params.scale");
-                $.writeln(params.scale);
-
-                $.writeln("motion.properties");
-                $.writeln(motion.properties);
-                $.writeln("motion.properties[0].displayName");
-                $.writeln(motion.properties[0].displayName);
-                $.writeln("motion.properties[1].displayName");
-                $.writeln(motion.properties[1].displayName);
-                */
                 motion.properties[0].setTimeVarying(false);
                 motion.properties[1].setTimeVarying(false);
                 // need center position, not top left
@@ -441,91 +448,218 @@ var LAYOUT_JSON = "C:/Users/12038/CryptidCluesScripting/output/layout_project.js
                 var top  = Number(place.y);
                 var fw   = Number(place.w);  // final width after scaling
                 var fh   = Number(place.h);  // final height after scaling
-                /*
-                $.writeln("setting to center position");
-                $.writeln(left);
-                $.writeln(place.y);
-                $.writeln(place.w);  // final width after scaling
-                $.writeln(place.h);  // final height after scaling
-                */
                 // Center of rect
                 var cx = left + fw/2;
                 var cy = top  + fh/2;
-                /*
-                $.writeln(cx);
-                $.writeln(cy);
-                $.writeln("layout project w and h");
-                $.writeln(layout.project.w);
-                $.writeln(layout.project.h);
-                $.writeln(cx / layout.project.w);
-                $.writeln(cy / layout.project.h);
-                */
+                // setting Motion's X and Y to be center rect vals for placements off mapping
                 motion.properties[0].setValue([cx / layout.project.w, cy / layout.project.h]); //position
                 motion.properties[1].setValue(params.scale);
                 
-                
-                var qeSeq = qe.project.getActiveSequence();
-                // If your video track is V1, leave 0. If it's a different track, set that index.
-                var vTrackIndex = k + existing; // Vn
-                var qeVTrack = qeSeq.getVideoTrackAt(vTrackIndex);
-                var qeItem   = qeVTrack.getItemAt(c);
-
-                // Find effects by name (locale-sensitive)
-                var fxDrop = qe.project.getVideoEffectByName("Drop Shadow");
-                var fxWave = qe.project.getVideoEffectByName("Wave Warp");
-                qeItem.addVideoEffect(fxDrop);
-                qeItem.addVideoEffect(fxDrop);
-                qeItem.addVideoEffect(fxDrop);
-                qeItem.addVideoEffect(fxDrop);
-                qeItem.addVideoEffect(fxDrop);
-                qeItem.addVideoEffect(fxDrop);
-                qeItem.addVideoEffect(fxDrop);
-                qeItem.addVideoEffect(fxWave);
-                var wavewarp = getWaveWarpComponent(placedClip);
-                wavewarp.properties[1].setValue(1); // Wave height?
-                wavewarp.properties[2].setValue(1280); // Wave Width?
-                wavewarp.properties[3].setValue(90); // Wave Direction?
-                wavewarp.properties[4].setValue(0.3); // Wave Speed? 
-                
-                // Setup Opacity, 0% to 100% in 45 frames.
-                var opacityComponent = getOpacityComponent(placedClip);
-                opacityComponent.properties[0].setTimeVarying(true);
-                // Add/overwrite keys
-                //$.writeln("Opacity name");
-                //$.writeln(opacityComponent.properties[0].displayName);
-                
-                // Adding fade in (keep as-is)
-                opacityComponent.properties[0].addKey(placedClip.inPoint.seconds);
-                opacityComponent.properties[0].setValueAtKey(placedClip.inPoint.seconds, 0);
-                var fadeOutTime = placedClip.inPoint.seconds + 1; // seconds until we hit 100% Opacity
-                opacityComponent.properties[0].addKey(fadeOutTime);   
-                opacityComponent.properties[0].setValueAtKey(fadeOutTime, 100);
-
-                // Adding fade out (use inPoint + duration; avoid exact clip end)
-                var clipIn   = placedClip.inPoint.seconds;
-                var clipDur  = placedClip.duration.seconds;
-                var fadeDur  = Math.min(1.0, clipDur);            // 1s fade or shorter if clip < 1s
-                var fadeOutStart = clipIn + clipDur - fadeDur;    // start of fade-out
-                var fadeOutEnd   = clipIn + clipDur - 0.001;      // tiny epsilon before end
-
-                opacityComponent.properties[0].addKey(fadeOutStart);
-                opacityComponent.properties[0].setValueAtKey(fadeOutStart, 100);
-                opacityComponent.properties[0].addKey(fadeOutEnd);
-                opacityComponent.properties[0].setValueAtKey(fadeOutEnd, 0);
-                
             } catch (e) {
-                $.writeln("Error changing clip duration.");
+                $.writeln("Error changing clip duration and placement.");
                 $.writeln(e);
-                //try {
-                   // newTI.duration = timeFromTicks(durTicks);
-                //} catch (e2) {
-                    //$.writeln("Could not set duration; still may already match.");
-                //}
             }
+        //     // Adding effects to video clips
+        // }
+        // var qeSeq = qe.project.getActiveSequence();
+        // for (var k = 0; k < placeable; k++) {
+        //     try {
+        //         //var qeSeq = qe.project.getActiveSequence();
+        //         // If your video track is V1, leave 0. If it's a different track, set that index.
+        //         // var vt = seq.videoTracks[k + existing];
+
+        //         // Grab track starting at existing, cant be 0
+        //         // k = number of place-ables looped starting at 0
+        //         var currentTrackOfInterestIndex = k + existing;
+        //         var qeVTrack = qeSeq.getVideoTrackAt(currentTrackOfInterestIndex);
+        //         $.writeln(currentTrackOfInterestIndex);
+        //         $.writeln(k);
+        //         $.writeln(existing);
+        //         // Grab current clip on track
+        //         // c = number of audio clips looped starting at 0, 
+        //         // var currentClipIndexOffset = (c + 1) - clipsPerTrack[k];
+        //         var qeItem   = qeVTrack.getItemAt(clipsPerTrack[k] - 1);
+
+        //         $.writeln("clipsPerTrack[k] output:");
+        //         $.writeln(clipsPerTrack[k]);
+        //         $.writeln(clipsPerTrack[k] - 1);
+        //         $.writeln("Getting track: V"+(currentTrackOfInterestIndex + 1));
+        //         $.writeln(qeVTrack.numItems);
+        //         //1,1,1,1,0
+        //         //12,10,10,9,3
+
+        //         // Find effects by name (locale-sensitive)
+        //         var fxDrop = qe.project.getVideoEffectByName("Drop Shadow");
+        //         var fxWave = qe.project.getVideoEffectByName("Wave Warp");
+        //         qeItem.addVideoEffect(fxDrop);
+        //         qeItem.addVideoEffect(fxDrop);
+        //         qeItem.addVideoEffect(fxDrop);
+        //         qeItem.addVideoEffect(fxDrop);
+        //         qeItem.addVideoEffect(fxDrop);
+        //         qeItem.addVideoEffect(fxDrop);
+        //         qeItem.addVideoEffect(fxDrop);
+        //         qeItem.addVideoEffect(fxWave);
+        //         var wavewarp = getWaveWarpComponent(placedClip);
+        //         wavewarp.properties[1].setValue(1); // Wave height?
+        //         wavewarp.properties[2].setValue(1280); // Wave Width?
+        //         wavewarp.properties[3].setValue(90); // Wave Direction?
+        //         wavewarp.properties[4].setValue(0.3); // Wave Speed? 
+                
+        //         // Setup Opacity, 0% to 100% in 45 frames.
+        //         var opacityComponent = getOpacityComponent(placedClip);
+        //         opacityComponent.properties[0].setTimeVarying(true);
+        //         // Add/overwrite keys
+        //         //$.writeln("Opacity name");
+        //         //$.writeln(opacityComponent.properties[0].displayName);
+                
+        //         // Adding fade in (keep as-is)
+        //         opacityComponent.properties[0].addKey(placedClip.inPoint.seconds);
+        //         opacityComponent.properties[0].setValueAtKey(placedClip.inPoint.seconds, 0);
+        //         var fadeOutTime = placedClip.inPoint.seconds + 1; // seconds until we hit 100% Opacity
+        //         opacityComponent.properties[0].addKey(fadeOutTime);   
+        //         opacityComponent.properties[0].setValueAtKey(fadeOutTime, 100);
+
+        //         // Adding fade out (use inPoint + duration; avoid exact clip end)
+        //         var clipIn   = placedClip.inPoint.seconds;
+        //         var clipDur  = placedClip.duration.seconds;
+        //         var fadeDur  = Math.min(1.0, clipDur);            // 1s fade or shorter if clip < 1s
+        //         var fadeOutStart = clipIn + clipDur - fadeDur;    // start of fade-out
+        //         var fadeOutEnd   = clipIn + clipDur - 0.001;      // tiny epsilon before end
+
+        //         opacityComponent.properties[0].addKey(fadeOutStart);
+        //         opacityComponent.properties[0].setValueAtKey(fadeOutStart, 100);
+        //         opacityComponent.properties[0].addKey(fadeOutEnd);
+        //         opacityComponent.properties[0].setValueAtKey(fadeOutEnd, 0);
+                
+        //     } catch (e) {
+        //         $.writeln("Error adding and managing clip affects.");
+        //         $.writeln(e);
+        //     }
         }
 
-        $.writeln("Placed " + placeable + " image(s) for segment " + (c + 1));
+        $.writeln("Placed " + (placeable - 1) + " image(s) for segment " + (c + 1));
     }
+    // $.writeln("LENGTHS of each sequence vid track starting at existing index");
+    // var qeTracks = [];
+    // for (var i = existing; i < app.project.activeSequence.videoTracks.numTracks; i++) {
+    //     qeTracks.push(qeSeq.getVideoTrackAt(i));
+    //     $.writeln(qeTracks[i - 1].numItems);
+    // }
+
+    // $.writeln("clipsPerTrack: ");
+    // $.writeln(clipsPerTrack);
+    
+    // var track = seq.videoTracks[1]; // V2 is index 1
+    // for (var i = 0; i < track.clips.numItems; i++) {
+    //     $.writeln(track.clips[i].name);
+    // }
+    // $.writeln("FIRST and LAST");
+    // $.writeln(track.clips[0].name);
+    // $.writeln(track.clips[11].name);
+    // $.writeln(track.clips[12].name);
+    // $.writeln(track.clips[13].name);
+    // $.writeln(track.clips[14].name);
+
+    // final add affects to ALL existing clips:
+    // assumes: app.enableQE(); var qeSeq = qe.project.getActiveSequence();
+    var seq = app.project.activeSequence;
+
+    // helper: map DOM clip -> QE item on the same track by start/end ticks
+    function findQEItemForDomClip(qeSeq, trackIndex, domClip) {
+        try {
+            var qet = qeSeq.getVideoTrackAt(trackIndex);
+            for (var i = 0; i < qet.numItems; i++) {
+                var qei = qet.getItemAt(i);
+                if (qei && qei.start && qei.end &&
+                    qei.start.ticks === domClip.start.ticks &&
+                    qei.end.ticks   === domClip.end.ticks) {
+                    return qei;
+                }
+            }
+            // fallback: try same index if counts line up
+            var domTrack = seq.videoTracks[trackIndex];
+            if (domTrack && domTrack.clips && domTrack.clips.numItems <= qet.numItems) {
+                return qet.getItemAt(domTrack.clips.numItems - 1);
+            }
+        } catch (e) {}
+        return null;
+    }
+
+    var fxDrop = qe.project.getVideoEffectByName("Drop Shadow");
+    var fxWave = qe.project.getVideoEffectByName("Wave Warp");
+
+    // Loop all tracks from `existing` to the end (skip V1..V(existing))
+    for (var t = existing; t < seq.videoTracks.numTracks; t++) {
+        var domTrack = seq.videoTracks[t];
+        if (!domTrack) continue;
+
+        for (var i = 0; i < domTrack.clips.numItems; i++) {
+            try {
+                var clip = domTrack.clips[i];
+                if (!clip) continue;
+
+                // QE: add effects to the matching QE item for this clip
+                var qeItem = findQEItemForDomClip(qeSeq, t, clip);
+                if (qeItem) {
+                    if (fxDrop) { 
+                        qeItem.addVideoEffect(fxDrop);
+                        qeItem.addVideoEffect(fxDrop);
+                        qeItem.addVideoEffect(fxDrop);
+                        qeItem.addVideoEffect(fxDrop);
+                        qeItem.addVideoEffect(fxDrop);
+                        qeItem.addVideoEffect(fxDrop);
+                        qeItem.addVideoEffect(fxDrop);
+                    }
+                    if (fxWave) { qeItem.addVideoEffect(fxWave); }
+                }
+
+                // Give PPro a moment to register newly added components
+                $.sleep(30);
+
+                // EXACT SAME LOGIC as your snippet, but applied to `clip`
+                // Wave Warp numeric indices (as in your code)
+                var wavewarp = getWaveWarpComponent(clip);
+                if (wavewarp && wavewarp.properties && wavewarp.properties.numItems >= 5) {
+                    wavewarp.properties[1].setValue(1);      // Wave Height
+                    wavewarp.properties[2].setValue(1280);   // Wave Width
+                    wavewarp.properties[3].setValue(90);     // Direction
+                    wavewarp.properties[4].setValue(0.3);    // Wave Speed
+                }
+
+                // Opacity fade in/out (same timing math, but on `clip`)
+                var opacityComponent = getOpacityComponent(clip);
+                if (opacityComponent) {
+                    var opacity = opacityComponent.properties[0]; // "Opacity"
+                    if (opacity) {
+                        opacity.setTimeVarying(true);
+
+                        // Fade in: from inPoint -> inPoint+1s (0% -> 100%)
+                        var inS = clip.inPoint.seconds;
+                        opacity.addKey(inS);
+                        opacity.setValueAtKey(inS, 0);
+                        var fadeInEnd = inS + 1.0;
+                        opacity.addKey(fadeInEnd);
+                        opacity.setValueAtKey(fadeInEnd, 100);
+
+                        // Fade out: last 1s of the clip (100% -> 0%)
+                        var clipDur  = clip.duration.seconds;
+                        var fadeDur  = Math.min(1.0, clipDur);
+                        var fadeOutStart = inS + clipDur - fadeDur;
+                        var fadeOutEnd   = inS + clipDur - 0.001;
+
+                        opacity.addKey(fadeOutStart);
+                        opacity.setValueAtKey(fadeOutStart, 100);
+                        opacity.addKey(fadeOutEnd);
+                        opacity.setValueAtKey(fadeOutEnd, 0);
+                    }
+                }
+
+            } catch (e) {
+                $.writeln("Error adding/managing clip effects on V" + (t+1) + " clip #" + i + ": " + e);
+            }
+        }
+    }
+
 
     alert("Done placing images aligned to A1 audio clips.");
 })();

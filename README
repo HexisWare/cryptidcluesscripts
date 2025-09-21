@@ -69,13 +69,8 @@ Edit "existing" variable, set it to used tracks in template. If the template has
 
 ##### Items needed for scripts above:
 `AudioSegmentCollageConnected.jsx`:
-Fix affect additions, goes to track 3 (or 3rd from top) and doesnt apply ANY effects to anything above track 3. Had this previosuly fixed, was due to using wrong reference clip when looping through images in tracks.
 
-Fix seg looping, previosuly fixed this too was due to mishandling in looping through audio track folder paths. seg10 vs seg010 issues. ENSURE seg10 gets used in this process between the invoked python scripting and this jsx file.
-
-Fix resolution handling, maybe make a new template thats 1920x1080 THEN just use that, then experiment ramping up quality. Pre-configurations?
-
-Find a way to apply visual affects, specifically that brown coded one (couldnt get it before).
+Find a way to apply visual affects, specifically that brown coded one (couldnt get it before). FOR INTRO
 
 `general`
 Somehow COMBINE the above into ONE sequence? Instead of many manual runs and processes/handling. ONE pipeline please.

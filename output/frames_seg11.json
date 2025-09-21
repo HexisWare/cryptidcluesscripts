@@ -1,0 +1,309 @@
+{
+  "bin": {
+    "w": 1326,
+    "h": 1080
+  },
+  "frames": [
+    {
+      "mode": "bin",
+      "frame_w": 1326,
+      "frame_h": 1080,
+      "title": "iter0_random_pack",
+      "coverage": 0.7042742025585162,
+      "placements": [
+        {
+          "id": "Bi,_British_Museum_3.jpg",
+          "x": 6,
+          "y": 6,
+          "w": 487,
+          "h": 731,
+          "scale": 0.7609375,
+          "w0": 640,
+          "h0": 961
+        },
+        {
+          "id": "Han_Jade_Bi_Disc_01.jpg",
+          "x": 505,
+          "y": 720,
+          "w": 487,
+          "h": 325,
+          "scale": 0.7609375,
+          "w0": 640,
+          "h0": 427
+        },
+        {
+          "id": "Jade_Bi_Disc,_Biluo_Hill_Western_Han_Tomb_(10091520756).jpg",
+          "x": 505,
+          "y": 383,
+          "w": 487,
+          "h": 325,
+          "scale": 0.7609375,
+          "w0": 640,
+          "h0": 427
+        },
+        {
+          "id": "Jade_bi_from_the_tomb_of_the_King_of_Chu_Shizi_Mountain_Western_Han_Dynasty_2nd_century_BCE_Nanjing_Museum_MH.jpg",
+          "x": 505,
+          "y": 6,
+          "w": 487,
+          "h": 365,
+          "scale": 0.7609375,
+          "w0": 640,
+          "h0": 480
+        },
+        {
+          "id": "Jade_Discs_on_Jade_Zhao_Mo's_Burial_Suit.jpg",
+          "x": 6,
+          "y": 749,
+          "w": 487,
+          "h": 325,
+          "scale": 0.7609375,
+          "w0": 640,
+          "h0": 427
+        }
+      ]
+    },
+    {
+      "mode": "bin",
+      "frame_w": 1326,
+      "frame_h": 1080,
+      "title": "iter1",
+      "coverage": 0.7373449807273337,
+      "placements": [
+        {
+          "id": "Bi,_British_Museum_3.jpg",
+          "x": 6,
+          "y": 6,
+          "w": 491,
+          "h": 737,
+          "scale": 0.7669094693028096,
+          "w0": 640,
+          "h0": 961
+        },
+        {
+          "id": "Jade_bi_from_the_tomb_of_the_King_of_Chu_Shizi_Mountain_Western_Han_Dynasty_2nd_century_BCE_Nanjing_Museum_MH.jpg",
+          "x": 503,
+          "y": 6,
+          "w": 495,
+          "h": 371,
+          "scale": 0.7729166666666667,
+          "w0": 640,
+          "h0": 480
+        },
+        {
+          "id": "Jade_Bi_Disc,_Biluo_Hill_Western_Han_Tomb_(10091520756).jpg",
+          "x": 503,
+          "y": 383,
+          "w": 496,
+          "h": 331,
+          "scale": 0.775175644028103,
+          "w0": 640,
+          "h0": 427
+        },
+        {
+          "id": "Han_Jade_Bi_Disc_01.jpg",
+          "x": 503,
+          "y": 720,
+          "w": 531,
+          "h": 354,
+          "scale": 0.8290398126463701,
+          "w0": 640,
+          "h0": 427
+        },
+        {
+          "id": "Jade_Discs_on_Jade_Zhao_Mo's_Burial_Suit.jpg",
+          "x": 6,
+          "y": 749,
+          "w": 487,
+          "h": 325,
+          "scale": 0.7611241217798594,
+          "w0": 640,
+          "h0": 427
+        }
+      ]
+    },
+    {
+      "mode": "bin",
+      "frame_w": 1326,
+      "frame_h": 1080,
+      "title": "iter2",
+      "coverage": 0.7373449807273337,
+      "placements": [
+        {
+          "id": "Bi,_British_Museum_3.jpg",
+          "x": 6,
+          "y": 6,
+          "w": 491,
+          "h": 737,
+          "scale": 0.7669094693028096,
+          "w0": 640,
+          "h0": 961
+        },
+        {
+          "id": "Jade_bi_from_the_tomb_of_the_King_of_Chu_Shizi_Mountain_Western_Han_Dynasty_2nd_century_BCE_Nanjing_Museum_MH.jpg",
+          "x": 503,
+          "y": 6,
+          "w": 495,
+          "h": 371,
+          "scale": 0.7729166666666667,
+          "w0": 640,
+          "h0": 480
+        },
+        {
+          "id": "Jade_Bi_Disc,_Biluo_Hill_Western_Han_Tomb_(10091520756).jpg",
+          "x": 503,
+          "y": 383,
+          "w": 496,
+          "h": 331,
+          "scale": 0.775175644028103,
+          "w0": 640,
+          "h0": 427
+        },
+        {
+          "id": "Han_Jade_Bi_Disc_01.jpg",
+          "x": 503,
+          "y": 720,
+          "w": 531,
+          "h": 354,
+          "scale": 0.8290398126463701,
+          "w0": 640,
+          "h0": 427
+        },
+        {
+          "id": "Jade_Discs_on_Jade_Zhao_Mo's_Burial_Suit.jpg",
+          "x": 6,
+          "y": 749,
+          "w": 487,
+          "h": 325,
+          "scale": 0.7611241217798594,
+          "w0": 640,
+          "h0": 427
+        }
+      ]
+    },
+    {
+      "mode": "bin",
+      "frame_w": 1326,
+      "frame_h": 1080,
+      "title": "iter3",
+      "coverage": 0.7373449807273337,
+      "placements": [
+        {
+          "id": "Bi,_British_Museum_3.jpg",
+          "x": 6,
+          "y": 6,
+          "w": 491,
+          "h": 737,
+          "scale": 0.7669094693028096,
+          "w0": 640,
+          "h0": 961
+        },
+        {
+          "id": "Jade_bi_from_the_tomb_of_the_King_of_Chu_Shizi_Mountain_Western_Han_Dynasty_2nd_century_BCE_Nanjing_Museum_MH.jpg",
+          "x": 503,
+          "y": 6,
+          "w": 495,
+          "h": 371,
+          "scale": 0.7729166666666667,
+          "w0": 640,
+          "h0": 480
+        },
+        {
+          "id": "Jade_Bi_Disc,_Biluo_Hill_Western_Han_Tomb_(10091520756).jpg",
+          "x": 503,
+          "y": 383,
+          "w": 496,
+          "h": 331,
+          "scale": 0.775175644028103,
+          "w0": 640,
+          "h0": 427
+        },
+        {
+          "id": "Han_Jade_Bi_Disc_01.jpg",
+          "x": 503,
+          "y": 720,
+          "w": 531,
+          "h": 354,
+          "scale": 0.8290398126463701,
+          "w0": 640,
+          "h0": 427
+        },
+        {
+          "id": "Jade_Discs_on_Jade_Zhao_Mo's_Burial_Suit.jpg",
+          "x": 6,
+          "y": 749,
+          "w": 487,
+          "h": 325,
+          "scale": 0.7611241217798594,
+          "w0": 640,
+          "h0": 427
+        }
+      ]
+    },
+    {
+      "mode": "project",
+      "frame_w": 1920,
+      "frame_h": 1080,
+      "title": "Project overlay (bin inside project)",
+      "coverage": 0.5092288773148148,
+      "placements": [
+        {
+          "id": "Bi,_British_Museum_3.jpg",
+          "x": 600,
+          "y": 6,
+          "w": 491,
+          "h": 737,
+          "scale": 0.7669094693028096,
+          "w0": 640,
+          "h0": 961
+        },
+        {
+          "id": "Jade_bi_from_the_tomb_of_the_King_of_Chu_Shizi_Mountain_Western_Han_Dynasty_2nd_century_BCE_Nanjing_Museum_MH.jpg",
+          "x": 1097,
+          "y": 6,
+          "w": 495,
+          "h": 371,
+          "scale": 0.7729166666666667,
+          "w0": 640,
+          "h0": 480
+        },
+        {
+          "id": "Jade_Bi_Disc,_Biluo_Hill_Western_Han_Tomb_(10091520756).jpg",
+          "x": 1097,
+          "y": 383,
+          "w": 496,
+          "h": 331,
+          "scale": 0.775175644028103,
+          "w0": 640,
+          "h0": 427
+        },
+        {
+          "id": "Han_Jade_Bi_Disc_01.jpg",
+          "x": 1097,
+          "y": 720,
+          "w": 531,
+          "h": 354,
+          "scale": 0.8290398126463701,
+          "w0": 640,
+          "h0": 427
+        },
+        {
+          "id": "Jade_Discs_on_Jade_Zhao_Mo's_Burial_Suit.jpg",
+          "x": 600,
+          "y": 749,
+          "w": 487,
+          "h": 325,
+          "scale": 0.7611241217798594,
+          "w0": 640,
+          "h0": 427
+        }
+      ],
+      "bin_rect": {
+        "x": 594,
+        "y": 0,
+        "w": 1326,
+        "h": 1080
+      }
+    }
+  ]
+}
