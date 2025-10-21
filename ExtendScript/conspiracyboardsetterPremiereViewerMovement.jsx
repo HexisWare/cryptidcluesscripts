@@ -1,7 +1,7 @@
 ﻿#target premierepro
 app.enableQE();
 
-/* Pan/Zoom FIRST V1 clip to each outer_box (from layout_export.json)
+/* Pan/Zoom FIRST V1 clip to each outer_box (from layout_export.json) 
    + Add "Basic 3D" via QE and set start Swivel = -11
    + Import a still image and place it on V2 above V1, set opacity = 95%
    + Animate Basic 3D Swivel from -11 (t0) to +11 at the final Position key time
@@ -11,11 +11,11 @@ var JSON_PATH                 = "C:/Users/12038/CryptidCluesScripting/ConspBoard
 var OVERLAY_IMAGE_PATH        = "C:/Users/12038/CryptidCluesScripting/ConspBoardScripting/overlay_top.png";
 
 // --- Timing (seconds) ---
-var HOLD_BASE_SEC             = 1.0;
+var HOLD_BASE_SEC             = 8.0;
 var HOLD_MULTIPLIER           = 0.15;
 var HOLD_SEC                  = HOLD_BASE_SEC * HOLD_MULTIPLIER;
 
-var TRAVEL_SEC                = 1.0;
+var TRAVEL_SEC                = 1.5;
 var CENTER_TRAVEL_S           = 1.0;
 var CENTER_HOLD_S             = 0.20;
 var CENTER_FINAL_SCALE_FACTOR = 0.5;

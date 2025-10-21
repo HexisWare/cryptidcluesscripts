@@ -1,0 +1,93 @@
+{
+  "project": {
+    "w": 1920,
+    "h": 1080
+  },
+  "from": {
+    "bin": {
+      "w": 1326,
+      "h": 1080
+    },
+    "project": {
+      "w": 1920,
+      "h": 1080
+    },
+    "scale_mode": "none",
+    "align": "right",
+    "offset": {
+      "x": 594,
+      "y": 0
+    },
+    "uniform_scale": 1.0
+  },
+  "placements": [
+    {
+      "id": "2025-09-23 20-36-04.mp4",
+      "x": 600,
+      "y": 6,
+      "w": 1076,
+      "h": 605,
+      "scale": 0.5601851851851852,
+      "w0": 1920,
+      "h0": 1080,
+      "kind": "video",
+      "media": {
+        "type": "video",
+        "src": "2025-09-23 20-36-04.mp4",
+        "fps": 60.0,
+        "duration": 5.016667
+      }
+    },
+    {
+      "id": "Screenshot 2025-09-23 203409.png",
+      "x": 600,
+      "y": 617,
+      "w": 323,
+      "h": 457,
+      "scale": 0.5549828178694158,
+      "w0": 582,
+      "h0": 824,
+      "kind": "image",
+      "media": {
+        "type": "image",
+        "src": "Screenshot 2025-09-23 203409.png",
+        "fps": null,
+        "duration": null
+      }
+    },
+    {
+      "id": "Screenshot 2025-09-23 203231.png",
+      "x": 929,
+      "y": 617,
+      "w": 549,
+      "h": 389,
+      "scale": 0.5613496932515337,
+      "w0": 978,
+      "h0": 693,
+      "kind": "image",
+      "media": {
+        "type": "image",
+        "src": "Screenshot 2025-09-23 203231.png",
+        "fps": null,
+        "duration": null
+      }
+    },
+    {
+      "id": "Screenshot 2025-09-23 154552.png",
+      "x": 1484,
+      "y": 617,
+      "w": 430,
+      "h": 409,
+      "scale": 0.6398809523809523,
+      "w0": 672,
+      "h0": 639,
+      "kind": "image",
+      "media": {
+        "type": "image",
+        "src": "Screenshot 2025-09-23 154552.png",
+        "fps": null,
+        "duration": null
+      }
+    }
+  ]
+}

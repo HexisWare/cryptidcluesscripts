@@ -660,6 +660,5 @@ var LAYOUT_JSON = "C:/Users/12038/CryptidCluesScripting/output/layout_project.js
         }
     }
 
-
     alert("Done placing images aligned to A1 audio clips.");
 })();

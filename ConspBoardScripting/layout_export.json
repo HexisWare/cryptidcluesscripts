@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generated_at": "2025-09-19T15:31:03.339099",
+    "generated_at": "2025-09-23T21:54:23.298972",
     "bin": {
       "width": 1920,
       "height": 1080,
@@ -27,42 +27,42 @@
   },
   "items": [
     {
-      "image_path": "C:/Users/12038/CryptidCluesScripting/ConspBoardScripting/intro_images/Peaceful_-_Flickr_-_Jaykhuang.jpg",
+      "image_path": "C:/Users/12038/CryptidCluesScripting/ConspBoardScripting/intro_images/Screenshot 2025-09-23 145312.png",
       "image_box": {
-        "x": 779,
-        "y": 812,
+        "x": 1180,
+        "y": 500,
         "w": 280,
-        "h": 187
+        "h": 169
       },
       "under_box": {
-        "x": 1041,
-        "y": 775,
+        "x": 1442,
+        "y": 583,
         "w": 224,
-        "h": 150
+        "h": 135
       },
       "under_good_zone": {
-        "x": 1059,
-        "y": 775,
+        "x": 1460,
+        "y": 583,
         "w": 206,
-        "h": 150
+        "h": 135
       },
       "text_box": {
-        "x": 1075.48,
-        "y": 787.0,
+        "x": 1476.48,
+        "y": 593.8,
         "w": 173.04,
-        "h": 126.0
+        "h": 113.4
       },
       "title_box": {
-        "x": 694,
-        "y": 875,
-        "w": 125,
-        "h": 22,
-        "overlap_frac": 0.3173723198258481,
+        "x": 1114,
+        "y": 516,
+        "w": 115,
+        "h": 23,
+        "overlap_frac": 0.42797451887440663,
         "pin_side": "left"
       },
       "outer_box": {
-        "x": 745,
-        "y": 731,
+        "x": 1146,
+        "y": 453,
         "w": 553,
         "h": 311,
         "aspect": 1.7777777777777777
@@ -81,47 +81,47 @@
       }
     },
     {
-      "image_path": "C:/Users/12038/CryptidCluesScripting/ConspBoardScripting/intro_images/Summer_Paradise_-_Flickr_-_Jaykhuang.jpg",
+      "image_path": "C:/Users/12038/CryptidCluesScripting/ConspBoardScripting/intro_images/TheBlaster-anti-hijacking-flamethrower.jpg",
       "image_box": {
-        "x": 501,
-        "y": 443,
-        "w": 187,
-        "h": 280
+        "x": 824,
+        "y": 815,
+        "w": 280,
+        "h": 185
       },
       "under_box": {
-        "x": 597,
-        "y": 705,
-        "w": 150,
-        "h": 224
+        "x": 618,
+        "y": 838,
+        "w": 224,
+        "h": 148
       },
       "under_good_zone": {
-        "x": 597,
-        "y": 723,
-        "w": 150,
-        "h": 206
+        "x": 618,
+        "y": 838,
+        "w": 206,
+        "h": 148
       },
       "text_box": {
-        "x": 609.0,
-        "y": 739.48,
-        "w": 126.0,
-        "h": 173.04
+        "x": 634.48,
+        "y": 849.84,
+        "w": 173.04,
+        "h": 124.32
       },
       "title_box": {
-        "x": 494,
-        "y": 706,
-        "w": 95,
-        "h": 44,
-        "overlap_frac": 0.3828406226899152,
-        "pin_side": "bottom"
+        "x": 711,
+        "y": 876,
+        "w": 166,
+        "h": 22,
+        "overlap_frac": 0.3190442845077375,
+        "pin_side": "left"
       },
       "outer_box": {
-        "x": 132,
-        "y": 409,
-        "w": 984,
-        "h": 553,
+        "x": 584,
+        "y": 752,
+        "w": 553,
+        "h": 311,
         "aspect": 1.7777777777777777
       },
-      "zoom_percent": 195.29837251356238,
+      "zoom_percent": 347.2668810289389,
       "pin_index": 1,
       "layers": {
         "underlay": 200,
@@ -135,47 +135,47 @@
       }
     },
     {
-      "image_path": "C:/Users/12038/CryptidCluesScripting/ConspBoardScripting/intro_images/Peking_1930s.jpg",
+      "image_path": "C:/Users/12038/CryptidCluesScripting/ConspBoardScripting/intro_images/OIP.jpg",
       "image_box": {
-        "x": 863,
-        "y": 72,
-        "w": 280,
-        "h": 198
+        "x": 470,
+        "y": 348,
+        "w": 228,
+        "h": 280
       },
       "under_box": {
-        "x": 1014,
-        "y": 0,
-        "w": 224,
-        "h": 158
+        "x": 303,
+        "y": 461,
+        "w": 182,
+        "h": 224
       },
       "under_good_zone": {
-        "x": 1014,
-        "y": 0,
-        "w": 224,
-        "h": 145
+        "x": 303,
+        "y": 461,
+        "w": 167,
+        "h": 224
       },
       "text_box": {
-        "x": 1031.92,
-        "y": 11.6,
-        "w": 188.16,
-        "h": 121.8
+        "x": 316.36,
+        "y": 478.92,
+        "w": 140.28,
+        "h": 188.16
       },
       "title_box": {
-        "x": 780,
-        "y": 155,
-        "w": 164,
-        "h": 25,
-        "overlap_frac": 0.49338130854227313,
-        "pin_side": "left"
+        "x": 533,
+        "y": 330,
+        "w": 139,
+        "h": 39,
+        "overlap_frac": 0.5444647124473971,
+        "pin_side": "top"
       },
       "outer_box": {
-        "x": 762,
-        "y": 0,
-        "w": 577,
-        "h": 324,
+        "x": 149,
+        "y": 319,
+        "w": 703,
+        "h": 395,
         "aspect": 1.7777777777777777
       },
-      "zoom_percent": 333.33333333333337,
+      "zoom_percent": 273.4177215189873,
       "pin_index": 2,
       "layers": {
         "underlay": 200,
@@ -189,47 +189,47 @@
       }
     },
     {
-      "image_path": "C:/Users/12038/CryptidCluesScripting/ConspBoardScripting/intro_images/Jinsha_Stone_Bi_Disc_2.jpg",
+      "image_path": "C:/Users/12038/CryptidCluesScripting/ConspBoardScripting/intro_images/fig03.jpg",
       "image_box": {
-        "x": 1188,
-        "y": 444,
-        "w": 280,
-        "h": 187
+        "x": 851,
+        "y": 14,
+        "w": 246,
+        "h": 280
       },
       "under_box": {
-        "x": 1154,
-        "y": 619,
-        "w": 224,
-        "h": 150
+        "x": 670,
+        "y": 33,
+        "w": 197,
+        "h": 224
       },
       "under_good_zone": {
-        "x": 1154,
-        "y": 631,
-        "w": 224,
-        "h": 138
+        "x": 670,
+        "y": 33,
+        "w": 181,
+        "h": 224
       },
       "text_box": {
-        "x": 1171.92,
-        "y": 642.04,
-        "w": 188.16,
-        "h": 115.92
+        "x": 684.48,
+        "y": 50.92,
+        "w": 152.04,
+        "h": 188.16
       },
       "title_box": {
-        "x": 1266,
-        "y": 622,
-        "w": 181,
-        "h": 22,
-        "overlap_frac": 0.4252135402954502,
+        "x": 869,
+        "y": 272,
+        "w": 138,
+        "h": 42,
+        "overlap_frac": 0.5332003905624335,
         "pin_side": "bottom"
       },
       "outer_box": {
-        "x": 971,
-        "y": 415,
-        "w": 680,
-        "h": 383,
+        "x": 586,
+        "y": 0,
+        "w": 595,
+        "h": 335,
         "aspect": 1.7777777777777777
       },
-      "zoom_percent": 282.3529411764706,
+      "zoom_percent": 322.6890756302521,
       "pin_index": 3,
       "layers": {
         "underlay": 200,
@@ -245,24 +245,24 @@
   ],
   "pins": [
     {
-      "x": 784.0,
-      "y": 886.0259850326148
+      "x": 1185.0,
+      "y": 527.111338703752
     },
     {
-      "x": 541.7719247697818,
-      "y": 718.0
+      "x": 829.0,
+      "y": 887.1509937416378
     },
     {
-      "x": 868.0,
-      "y": 167.46020746818684
+      "x": 602.2963064486574,
+      "y": 354.0
     },
     {
-      "x": 1356.8039288264504,
-      "y": 626.0
+      "x": 938.4745820509816,
+      "y": 288.0
     },
     {
-      "x": 939.0154379795217,
-      "y": 455.0
+      "x": 1115.0,
+      "y": 587.6956987920989
     }
   ],
   "links": [
@@ -273,6 +273,10 @@
     [
       2,
       4
+    ],
+    [
+      1,
+      2
     ],
     [
       0,
